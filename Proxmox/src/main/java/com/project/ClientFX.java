@@ -5,6 +5,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.animation.PauseTransition;
@@ -46,6 +48,17 @@ public class ClientFX extends Application {
         ctrlPlay = (CtrlPlay) UtilsViews.getController("ViewPlay");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
+
+        scene.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                System.out.println("Width: " + newSceneWidth);
+            }
+        });
+        scene.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                System.out.println("Height: " + newSceneHeight);
+            }
+        });
         
         stage.setScene(scene);
         stage.onCloseRequestProperty(); // Call close method when closing window
@@ -53,6 +66,14 @@ public class ClientFX extends Application {
         stage.setMinWidth(windowWidth);
         stage.setMinHeight(windowHeight);
         stage.show();
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("Width changed: " + newVal);
+        });
+
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            System.out.println("Height changed: " + newVal);
+        });
 
         // Add icon only if not Mac
         if (!System.getProperty("os.name").contains("Mac")) {
