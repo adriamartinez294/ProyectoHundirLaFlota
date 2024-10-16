@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 public class CtrlPlay implements Initializable {
@@ -50,7 +49,7 @@ public class CtrlPlay implements Initializable {
         canvas.setOnMouseReleased(this::onMouseReleased);
 
         // Define grid
-        grid = new PlayGrid(25, 25, 25, 10, 10);
+        grid = new PlayGrid(150, 25, 25, 10, 10);
 
         // Start run/draw timer bucle
         animationTimer = new PlayTimer(this::run, this::draw, 0);
