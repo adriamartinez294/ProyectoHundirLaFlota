@@ -68,25 +68,26 @@ public class PlayGrid {
         return (int) (getStartY() + row * getCellSize());
     }
 
+    // Dibujar los números sobre las columnas
     public void drawColumnNumbers(GraphicsContext gc) {
         gc.setFill(Color.BLACK);
-        gc.setFont(new Font(12));  // Tamaño de fuente para los números
-
-        // Dibujar los números sobre las columnas
+        gc.setFont(new Font(12)); 
+        
         for (int col = 0; col < cols; col++) {
             double x = startX + col * cellSize + cellSize / 2;
-            double y = startY - 5;  // Colocar los números justo arriba de la cuadrícula
+            double y = startY - 5;
             gc.fillText(String.valueOf(col + 1), x, y);
         }
     }
 
+    // Dibujar las letras a la izquierda de las filas
     public void drawRowLetters(GraphicsContext gc) {
         gc.setFill(Color.BLACK);
-        gc.setFont(new Font(12));  // Tamaño de fuente para las letras
+        gc.setFont(new Font(12));
     
-        // Dibujar las letras a la izquierda de las filas
+        
         for (int row = 0; row < rows; row++) {
-            double x = startX - 20;  // Colocar las letras a la izquierda de la cuadrícula (ajusta -20 según el espacio deseado)
+            double x = startX - 20; 
             double y = startY + row * cellSize + cellSize / 2;
             gc.fillText(String.valueOf((char) ('A' + row)), x, y);
         }

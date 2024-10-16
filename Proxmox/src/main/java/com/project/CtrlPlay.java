@@ -235,8 +235,8 @@ public class CtrlPlay implements Initializable {
         drawGrid();
     
         // Llamar a los métodos para dibujar los números y letras en el tablero
-        grid.drawColumnNumbers(gc);  // Números de columnas arriba
-        grid.drawRowLetters(gc);     // Letras de filas a la derecha
+        grid.drawColumnNumbers(gc);
+        grid.drawRowLetters(gc); 
     
         // Dibujar los objetos seleccionables
         for (String objectId : selectableObjects.keySet()) {

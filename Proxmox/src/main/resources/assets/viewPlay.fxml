@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="384.0" minWidth="600.0" prefHeight="384.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlPlay">
+<AnchorPane fx:id="anchor" minHeight="384.0" minWidth="600.0" prefHeight="431.0" prefWidth="671.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlPlay">
    <children>
       <ImageView fitHeight="459.0" fitWidth="672.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
