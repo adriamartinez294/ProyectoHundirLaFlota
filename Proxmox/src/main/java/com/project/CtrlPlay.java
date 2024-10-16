@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 public class CtrlPlay implements Initializable {
@@ -27,6 +28,7 @@ public class CtrlPlay implements Initializable {
     public Map<String, JSONObject> clientMousePositions = new HashMap<>();
     private Boolean mouseDragging = false;
     private double mouseOffsetX, mouseOffsetY;
+    private double mouseX, mouseY;
 
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
@@ -114,11 +116,25 @@ public class CtrlPlay implements Initializable {
             int rows = obj.getInt("rows");
 
             if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows)) {
-                selectedObject = objectId;
-                mouseDragging = true;
-                mouseOffsetX = event.getX() - objX;
-                mouseOffsetY = event.getY() - objY;
-                break;
+                if (event.isPrimaryButtonDown()) {
+                    selectedObject = objectId;
+                    mouseDragging = true;
+                    mouseOffsetX = event.getX() - objX;
+                    mouseOffsetY = event.getY() - objY;
+                    break;
+                }
+
+                else if (event.isSecondaryButtonDown()) {
+                    obj.put("cols", rows);
+                    obj.put("rows", cols);
+    
+                    for (String objectid2 : selectableObjects.keySet()) {
+                        JSONObject selectableObject = selectableObjects.get(objectId);
+                        drawSelectableObject(objectId, selectableObject);
+                    }
+
+                    break;
+                }
             }
         }
     }
