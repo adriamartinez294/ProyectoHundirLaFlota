@@ -269,7 +269,7 @@ public class Server extends WebSocketServer {
         LineReader reader = LineReaderBuilder.builder().build();
         System.out.println("Server running. Type 'exit' to gracefully stop it.");
 
-        // Add objects
+        // Add objects - Player A
         String name0 = "O0";
         JSONObject obj0 = new JSONObject();
         obj0.put("objectId", name0);
@@ -277,6 +277,7 @@ public class Server extends WebSocketServer {
         obj0.put("y", 50);
         obj0.put("cols", 2);
         obj0.put("rows", 1);
+        obj0.put("player", "A");
         selectableObjects.put(name0, obj0);
 
         String name1 = "O1";
@@ -286,6 +287,7 @@ public class Server extends WebSocketServer {
         obj1.put("y", 100);
         obj1.put("cols", 2);
         obj1.put("rows", 1);
+        obj1.put("player", "A");
         selectableObjects.put(name1, obj1);
 
         String name2 = "O2";
@@ -295,6 +297,7 @@ public class Server extends WebSocketServer {
         obj2.put("y", 150);
         obj2.put("cols", 3);
         obj2.put("rows", 1);
+        obj2.put("player", "A");
         selectableObjects.put(name2, obj2);
 
         String name3 = "O3";
@@ -304,6 +307,7 @@ public class Server extends WebSocketServer {
         obj3.put("y", 200);
         obj3.put("cols", 4);
         obj3.put("rows", 1);
+        obj3.put("player", "A");
         selectableObjects.put(name3, obj3);
 
         String name4 = "O4";
@@ -313,7 +317,60 @@ public class Server extends WebSocketServer {
         obj4.put("y", 250);
         obj4.put("cols", 5);
         obj4.put("rows", 1);
+        obj4.put("player", "A");
         selectableObjects.put(name4, obj4);
+
+
+        // Add objects - Player B
+        String name5 = "O0";
+        JSONObject obj5 = new JSONObject();
+        obj5.put("objectId", name5);
+        obj5.put("x", 425);
+        obj5.put("y", 50);
+        obj5.put("cols", 2);
+        obj5.put("rows", 1);
+        obj5.put("player", "B");
+        selectableObjects.put(name5, obj5);
+
+        String name6 = "O1";
+        JSONObject obj6 = new JSONObject();
+        obj6.put("objectId", name6);
+        obj6.put("x", 425);
+        obj6.put("y", 100);
+        obj6.put("cols", 2);
+        obj6.put("rows", 1);
+        obj6.put("player", "B");
+        selectableObjects.put(name6, obj6);
+
+        String name7 = "O2";
+        JSONObject obj7 = new JSONObject();
+        obj7.put("objectId", name7);
+        obj7.put("x", 425);
+        obj7.put("y", 150);
+        obj7.put("cols", 3);
+        obj7.put("rows", 1);
+        obj7.put("player", "B");
+        selectableObjects.put(name7, obj7);
+
+        String name8 = "O3";
+        JSONObject obj8 = new JSONObject();
+        obj8.put("objectId", name8);
+        obj8.put("x", 425);
+        obj8.put("y", 200);
+        obj8.put("cols", 4);
+        obj8.put("rows", 1);
+        obj8.put("player", "B");
+        selectableObjects.put(name8, obj8);
+
+        String name9 = "O4";
+        JSONObject obj9 = new JSONObject();
+        obj9.put("objectId", name9);
+        obj9.put("x", 425);
+        obj9.put("y", 250);
+        obj9.put("cols", 5);
+        obj9.put("rows", 1);
+        obj9.put("player", "B");
+        selectableObjects.put(name9, obj9);
 
 
         try {

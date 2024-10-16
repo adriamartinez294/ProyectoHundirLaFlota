@@ -11,6 +11,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.animation.PauseTransition;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -108,6 +109,7 @@ public class ClientFX extends Application {
     public static void connectToServer() {
 
         ctrlConfig.txtMessage.setTextFill(Color.WHITE);
+        ctrlConfig.txtMessage.setFont(Font.font("Noto Serif Tamil Slanted Bold", 14));
         ctrlConfig.txtMessage.setText("Connecting...");
     
         pauseDuring(1500, () -> { // Give time to show connecting message ...
@@ -123,7 +125,7 @@ public class ClientFX extends Application {
     }
    
     private static void wsMessage(String response) {
-        // System.out.println(response);
+        //System.out.println(response);
         JSONObject msgObj = new JSONObject(response);
         switch (msgObj.getString("type")) {
             case "clients":
