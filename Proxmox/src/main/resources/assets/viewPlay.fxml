@@ -2,17 +2,24 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="500.0" minWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlPlay">
+<AnchorPane fx:id="anchor" minHeight="384.0" minWidth="600.0" prefHeight="384.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlPlay">
    <children>
+      <ImageView fitHeight="459.0" fitWidth="672.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@fondo_waiting.jpg" />
+         </image>
+      </ImageView>
       <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label alignment="CENTER" text="Test game">
+            <Label alignment="CENTER" text="HUNDIR LA FLOTA">
                <font>
-                  <Font size="36.0" />
+                  <Font name="Noto Serif Tamil Slanted Bold" size="48.0" />
                </font>
             </Label>
             <Canvas fx:id="canvas" height="25.0" width="25.0" VBox.vgrow="ALWAYS" />
