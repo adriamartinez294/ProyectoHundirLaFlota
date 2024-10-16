@@ -74,7 +74,7 @@ public class PlayGrid {
         gc.setFont(new Font(12)); 
         
         for (int col = 0; col < cols; col++) {
-            double x = startX + col * cellSize + cellSize / 2;
+            double x = startX + col * cellSize + cellSize / 2 -4;
             double y = startY - 5;
             gc.fillText(String.valueOf(col + 1), x, y);
         }
@@ -87,7 +87,7 @@ public class PlayGrid {
     
         
         for (int row = 0; row < rows; row++) {
-            double x = startX - 20; 
+            double x = startX - 15; 
             double y = startY + row * cellSize + cellSize / 2;
             gc.fillText(String.valueOf((char) ('A' + row)), x, y);
         }
