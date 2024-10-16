@@ -277,6 +277,7 @@ public class Server extends WebSocketServer {
         obj0.put("y", 50);
         obj0.put("cols", 4);
         obj0.put("rows", 1);
+        obj0.put("player", "A");
         selectableObjects.put(name0, obj0);
 
         String name1 = "O1";
@@ -286,6 +287,7 @@ public class Server extends WebSocketServer {
         obj1.put("y", 100);
         obj1.put("cols", 1);
         obj1.put("rows", 3);
+        obj1.put("player", "B");
         selectableObjects.put(name1, obj1);
 
         try {

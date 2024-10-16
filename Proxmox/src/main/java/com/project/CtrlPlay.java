@@ -29,6 +29,7 @@ public class CtrlPlay implements Initializable {
     private Boolean mouseDragging = false;
     private double mouseOffsetX, mouseOffsetY;
     private double mouseX, mouseY;
+    private static String clientId = "A";
 
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
@@ -185,6 +186,7 @@ public class CtrlPlay implements Initializable {
         }
     }
 
+
     public void setPlayersMousePositions(JSONObject positions) {
         clientMousePositions.clear();
         for (String clientId : positions.keySet()) {
@@ -223,55 +225,55 @@ public class CtrlPlay implements Initializable {
         // Update objects and animations here
     }
 
+    // Draw game to canvas
     public void draw() {
 
-        // Limpiar el área de dibujo
+        // Clean drawing area
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    
-        // Dibujar las celdas resaltadas por el ratón
+
+        // Draw colored 'over' cells
+
         for (String clientId : clientMousePositions.keySet()) {
             JSONObject position = clientMousePositions.get(clientId);
-    
+
             int col = position.getInt("col");
             int row = position.getInt("row");
-    
-            // Comprobar si está dentro de los límites de la cuadrícula
+
+            // Comprovar si està dins dels límits de la graella
             if (row >= 0 && col >= 0) {
                 if ("A".equals(clientId)) {
                     gc.setFill(Color.LIGHTBLUE); 
                 } else {
-                    gc.setFill(Color.CORAL); 
+                    gc.setFill(Color.LIGHTGREEN); 
                 }
-                // Rellenar la celda con el color
+                // Emplenar la casella amb el color clar
                 gc.fillRect(grid.getCellX(col), grid.getCellY(row), grid.getCellSize(), grid.getCellSize());
             }
         }
-    
-        // Dibujar la cuadrícula
+
+        // Draw grid
         drawGrid();
-    
-        // Llamar a los métodos para dibujar los números y letras en el tablero
-        grid.drawColumnNumbers(gc);
-        grid.drawRowLetters(gc); 
-    
-        // Dibujar los objetos seleccionables
+
+        // Draw selectable objects
         for (String objectId : selectableObjects.keySet()) {
             JSONObject selectableObject = selectableObjects.get(objectId);
-            drawSelectableObject(objectId, selectableObject);
+            if (selectableObject.getString("player").equals(clientId)){
+                drawSelectableObject(objectId, selectableObject);
+            }
         }
-    
-        // Dibujar los círculos de posición del ratón
+
+        // Draw mouse circles
         for (String clientId : clientMousePositions.keySet()) {
             JSONObject position = clientMousePositions.get(clientId);
             if ("A".equals(clientId)) {
                 gc.setFill(Color.BLUE);
             } else {
-                gc.setFill(Color.RED); 
+                gc.setFill(Color.GREEN); 
             }
             gc.fillOval(position.getInt("x") - 5, position.getInt("y") - 5, 10, 10);
         }
-    
-        // Dibujar FPS si es necesario
+
+        // Draw FPS if needed
         if (showFPS) { animationTimer.drawFPS(gc); }   
     }
 
