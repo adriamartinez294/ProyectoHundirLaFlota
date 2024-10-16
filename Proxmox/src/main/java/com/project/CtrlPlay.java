@@ -29,7 +29,7 @@ public class CtrlPlay implements Initializable {
     private Boolean mouseDragging = false;
     private double mouseOffsetX, mouseOffsetY;
     private double mouseX, mouseY;
-    private static String clientId = "A";
+    private static String clientId;
 
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
@@ -99,6 +99,10 @@ public class CtrlPlay implements Initializable {
         if (ClientFX.wsClient != null) {
             ClientFX.wsClient.safeSend(msgObj.toString());
         }
+    }
+
+    public static void setClientId(String clientId) {
+        CtrlPlay.clientId = clientId;
     }
 
     private void onMousePressed(MouseEvent event) {
@@ -227,6 +231,8 @@ public class CtrlPlay implements Initializable {
 
     // Draw game to canvas
     public void draw() {
+
+        setClientId(ClientFX.getClientId());
 
         // Clean drawing area
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

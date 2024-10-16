@@ -123,7 +123,7 @@ public class ClientFX extends Application {
     }
    
     private static void wsMessage(String response) {
-        // System.out.println(response);
+        System.out.println(response);
         JSONObject msgObj = new JSONObject(response);
         switch (msgObj.getString("type")) {
             case "clients":
@@ -165,5 +165,9 @@ public class ClientFX extends Application {
                 ctrlConfig.txtMessage.setText("");
             });
         }
+    }
+
+    public static String getClientId() {
+        return clientId;
     }
 }
