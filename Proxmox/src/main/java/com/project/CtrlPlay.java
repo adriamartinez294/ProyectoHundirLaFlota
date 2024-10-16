@@ -223,53 +223,55 @@ public class CtrlPlay implements Initializable {
         // Update objects and animations here
     }
 
-    // Draw game to canvas
     public void draw() {
 
-        // Clean drawing area
+        // Limpiar el área de dibujo
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        // Draw colored 'over' cells
-
+    
+        // Dibujar las celdas resaltadas por el ratón
         for (String clientId : clientMousePositions.keySet()) {
             JSONObject position = clientMousePositions.get(clientId);
-
+    
             int col = position.getInt("col");
             int row = position.getInt("row");
-
-            // Comprovar si està dins dels límits de la graella
+    
+            // Comprobar si está dentro de los límites de la cuadrícula
             if (row >= 0 && col >= 0) {
                 if ("A".equals(clientId)) {
                     gc.setFill(Color.LIGHTBLUE); 
                 } else {
-                    gc.setFill(Color.LIGHTGREEN); 
+                    gc.setFill(Color.CORAL); 
                 }
-                // Emplenar la casella amb el color clar
+                // Rellenar la celda con el color
                 gc.fillRect(grid.getCellX(col), grid.getCellY(row), grid.getCellSize(), grid.getCellSize());
             }
         }
-
-        // Draw grid
+    
+        // Dibujar la cuadrícula
         drawGrid();
-
-        // Draw selectable objects
+    
+        // Llamar a los métodos para dibujar los números y letras en el tablero
+        grid.drawColumnNumbers(gc);
+        grid.drawRowLetters(gc); 
+    
+        // Dibujar los objetos seleccionables
         for (String objectId : selectableObjects.keySet()) {
             JSONObject selectableObject = selectableObjects.get(objectId);
             drawSelectableObject(objectId, selectableObject);
         }
-
-        // Draw mouse circles
+    
+        // Dibujar los círculos de posición del ratón
         for (String clientId : clientMousePositions.keySet()) {
             JSONObject position = clientMousePositions.get(clientId);
             if ("A".equals(clientId)) {
                 gc.setFill(Color.BLUE);
             } else {
-                gc.setFill(Color.GREEN); 
+                gc.setFill(Color.RED); 
             }
             gc.fillOval(position.getInt("x") - 5, position.getInt("y") - 5, 10, 10);
         }
-
-        // Draw FPS if needed
+    
+        // Dibujar FPS si es necesario
         if (showFPS) { animationTimer.drawFPS(gc); }   
     }
 
