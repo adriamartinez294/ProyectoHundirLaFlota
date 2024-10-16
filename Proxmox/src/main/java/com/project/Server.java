@@ -270,7 +270,7 @@ public class Server extends WebSocketServer {
         System.out.println("Server running. Type 'exit' to gracefully stop it.");
 
         // Add objects - Player A
-        String name0 = "O0";
+        String name0 = "A0";
         JSONObject obj0 = new JSONObject();
         obj0.put("objectId", name0);
         obj0.put("x", 425);
@@ -280,7 +280,7 @@ public class Server extends WebSocketServer {
         obj0.put("player", "A");
         selectableObjects.put(name0, obj0);
 
-        String name1 = "O1";
+        String name1 = "A1";
         JSONObject obj1 = new JSONObject();
         obj1.put("objectId", name1);
         obj1.put("x", 425);
@@ -290,7 +290,7 @@ public class Server extends WebSocketServer {
         obj1.put("player", "A");
         selectableObjects.put(name1, obj1);
 
-        String name2 = "O2";
+        String name2 = "A2";
         JSONObject obj2 = new JSONObject();
         obj2.put("objectId", name2);
         obj2.put("x", 425);
@@ -300,7 +300,7 @@ public class Server extends WebSocketServer {
         obj2.put("player", "A");
         selectableObjects.put(name2, obj2);
 
-        String name3 = "O3";
+        String name3 = "A3";
         JSONObject obj3 = new JSONObject();
         obj3.put("objectId", name3);
         obj3.put("x", 425);
@@ -310,7 +310,7 @@ public class Server extends WebSocketServer {
         obj3.put("player", "A");
         selectableObjects.put(name3, obj3);
 
-        String name4 = "O4";
+        String name4 = "A4";
         JSONObject obj4 = new JSONObject();
         obj4.put("objectId", name4);
         obj4.put("x", 425);
@@ -322,7 +322,7 @@ public class Server extends WebSocketServer {
 
 
         // Add objects - Player B
-        String name5 = "O5";
+        String name5 = "B1";
         JSONObject obj5 = new JSONObject();
         obj5.put("objectId", name5);
         obj5.put("x", 425);
@@ -332,7 +332,7 @@ public class Server extends WebSocketServer {
         obj5.put("player", "B");
         selectableObjects.put(name5, obj5);
 
-        String name6 = "O6";
+        String name6 = "B2";
         JSONObject obj6 = new JSONObject();
         obj6.put("objectId", name6);
         obj6.put("x", 425);
@@ -342,7 +342,7 @@ public class Server extends WebSocketServer {
         obj6.put("player", "B");
         selectableObjects.put(name6, obj6);
 
-        String name7 = "O7";
+        String name7 = "B3";
         JSONObject obj7 = new JSONObject();
         obj7.put("objectId", name7);
         obj7.put("x", 425);
@@ -352,7 +352,7 @@ public class Server extends WebSocketServer {
         obj7.put("player", "B");
         selectableObjects.put(name7, obj7);
 
-        String name8 = "O8";
+        String name8 = "B4";
         JSONObject obj8 = new JSONObject();
         obj8.put("objectId", name8);
         obj8.put("x", 425);
@@ -362,7 +362,7 @@ public class Server extends WebSocketServer {
         obj8.put("player", "B");
         selectableObjects.put(name8, obj8);
 
-        String name9 = "O9";
+        String name9 = "B5";
         JSONObject obj9 = new JSONObject();
         obj9.put("objectId", name9);
         obj9.put("x", 425);
