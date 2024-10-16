@@ -287,7 +287,7 @@ public class Server extends WebSocketServer {
         obj1.put("y", 100);
         obj1.put("cols", 1);
         obj1.put("rows", 3);
-        obj1.put("player", "B");
+        obj1.put("player", "A");
         selectableObjects.put(name1, obj1);
 
         String name2 = "O2";
