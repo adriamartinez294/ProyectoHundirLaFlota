@@ -1,15 +1,23 @@
 package com.project;
 
 import java.net.URL;
+import java.net.http.WebSocket;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
+
 import org.json.JSONObject;
+
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.text.Text;
+import javafx.scene.control.Button;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -18,6 +26,13 @@ public class CtrlPlay implements Initializable {
 
     @FXML
     private Canvas canvas;
+
+    @FXML
+    private Button readyButton;
+
+    @FXML
+    public Text waiting;
+
     private GraphicsContext gc;
     private Boolean showFPS = false;
 
@@ -30,8 +45,12 @@ public class CtrlPlay implements Initializable {
     private double mouseX, mouseY;
     private static String clientId;
 
+    public boolean playersReady = false;
+
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
+
+    private WebSocketClient client = null;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -56,6 +75,7 @@ public class CtrlPlay implements Initializable {
         start();
     }
 
+
     // When window changes its size
     public void onSizeChanged() {
 
@@ -74,6 +94,20 @@ public class CtrlPlay implements Initializable {
     public void stop() {
         animationTimer.stop();
     }
+
+    @FXML
+    private void setReady(){
+        String a = "player " + clientId + " is ready";
+        JSONObject message = new JSONObject();
+        message.put("type", "ready");
+        message.put("message", a);
+
+        client.send(message.toString());
+
+        readyButton.setVisible(false);
+        waiting.setVisible(true);
+    }
+
 
     private void setOnMouseMoved(MouseEvent event) {
         double mouseX = event.getX();
@@ -119,7 +153,7 @@ public class CtrlPlay implements Initializable {
             int cols = obj.getInt("cols");
             int rows = obj.getInt("rows");
 
-            if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows)) {
+            if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows) && playersReady == false) {
                 if (event.isPrimaryButtonDown()) {
                     selectedObject = objectId;
                     mouseDragging = true;
@@ -128,7 +162,7 @@ public class CtrlPlay implements Initializable {
                     break;
                 }
 
-                else if (event.isSecondaryButtonDown()) {
+                else if (event.isSecondaryButtonDown() && playersReady) {
                     obj.put("cols", rows);
                     obj.put("rows", cols);
     
@@ -228,10 +262,15 @@ public class CtrlPlay implements Initializable {
         // Update objects and animations here
     }
 
+    public void setClient() {
+        this.client = UtilsWS.getClient();
+    }
+
     // Draw game to canvas
     public void draw() {
 
         setClientId(ClientFX.getClientId());
+        setClient();
 
         // Clean drawing area
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

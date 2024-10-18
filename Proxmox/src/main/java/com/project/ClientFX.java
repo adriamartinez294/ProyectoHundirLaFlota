@@ -125,7 +125,6 @@ public class ClientFX extends Application {
     }
    
     private static void wsMessage(String response) {
-        System.out.println(response);
         JSONObject msgObj = new JSONObject(response);
         switch (msgObj.getString("type")) {
             case "clients":
@@ -154,11 +153,13 @@ public class ClientFX extends Application {
             case "serverSelectableObjects":
                 ctrlPlay.setSelectableObjects(msgObj.getJSONObject("selectableObjects"));
                 break;
+            case "playersReady":
+                ctrlPlay.playersReady = true;
+                ctrlPlay.waiting.setVisible(false);
         }
     }
 
     private static void wsError(String response) {
-
         String connectionRefused = "Connection refused";
         if (response.indexOf(connectionRefused) != -1) {
             ctrlConfig.txtMessage.setTextFill(Color.RED);

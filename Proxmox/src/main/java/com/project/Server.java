@@ -1,6 +1,7 @@
 package com.project;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.java_websocket.server.WebSocketServer;
@@ -12,6 +13,7 @@ import org.java_websocket.WebSocket;
 import org.java_websocket.handshake.ClientHandshake;
 
 import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -28,6 +30,7 @@ import org.java_websocket.exceptions.WebsocketNotConnectedException;
 public class Server extends WebSocketServer {
 
     private static final List<String> PLAYER_NAMES = Arrays.asList("A", "B");
+    private Map<String, Boolean> readyStates = new HashMap<>();
 
     private Map<WebSocket, String> clients;
     private List<String> availableNames;
@@ -52,6 +55,7 @@ public class Server extends WebSocketServer {
         clients.put(conn, clientName);
         System.out.println("WebSocket client connected: " + clientName);
         sendClientsList();
+        readyStates.put(clientName, false);
         sendCowntdown();
     }
 
@@ -66,6 +70,7 @@ public class Server extends WebSocketServer {
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
         String clientName = clients.get(conn);
         clients.remove(conn);
+        readyStates.remove(clientName);
         availableNames.add(clientName);
         System.out.println("WebSocket client disconnected: " + clientName);
         sendClientsList();
@@ -99,8 +104,35 @@ public class Server extends WebSocketServer {
 
                     sendServerSelectableObjects();
                     break;
+                case "ready":
+                    String clientName = clients.get(conn);
+                    readyStates.put(clientName, true);
+                    boolean playersReady = checkIfBothPlayersReady();
+                    if (playersReady) {
+                        setPlayersReady();
+                    }
+                    break;
             }
         }
+    }
+
+    private void setPlayersReady() {
+
+        JSONObject rst0 = new JSONObject();
+        rst0.put("type", "playersReady");
+        rst0.put("message", "Players Are Ready");
+        broadcastMessage(rst0.toString(), null);
+        
+    }
+
+    private boolean checkIfBothPlayersReady() {
+        System.out.println(readyStates);
+        boolean playersReady = false;
+        if (readyStates.get("A") == true && readyStates.get("B") == true) {
+            playersReady = true;
+        }
+
+        return playersReady;
     }
    
     private void broadcastMessage(String message, WebSocket sender) {

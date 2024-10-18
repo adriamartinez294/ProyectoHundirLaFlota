@@ -14,7 +14,7 @@ import org.java_websocket.handshake.ServerHandshake;
 public class UtilsWS {
 
     private static UtilsWS sharedInstance = null;
-    private WebSocketClient client;
+    public static WebSocketClient client;
     private Consumer<String> onOpenCallBack = null;
     private Consumer<String> onMessageCallBack = null;
     private Consumer<String> onCloseCallBack = null;
@@ -150,5 +150,9 @@ public class UtilsWS {
 
     public boolean isOpen() {
         return client != null && client.isOpen();
+    }
+
+    public static WebSocketClient getClient() {
+        return UtilsWS.client;
     }
 }
