@@ -26,6 +26,7 @@ public class ClientFX extends Application {
     public static CtrlConfig ctrlConfig;
     public static CtrlWait ctrlWait;
     public static CtrlPlay ctrlPlay;
+    
 
     public static void main(String[] args) {
 
@@ -36,8 +37,8 @@ public class ClientFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        final int windowWidth = 400;
-        final int windowHeight = 300;
+        final int windowWidth = 655;
+        final int windowHeight = 420;
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
@@ -66,6 +67,8 @@ public class ClientFX extends Application {
         stage.setTitle("JavaFX - NodeJS");
         stage.setMinWidth(windowWidth);
         stage.setMinHeight(windowHeight);
+        stage.setMaxWidth(windowWidth);
+        stage.setMaxHeight(windowHeight);
         stage.show();
 
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {

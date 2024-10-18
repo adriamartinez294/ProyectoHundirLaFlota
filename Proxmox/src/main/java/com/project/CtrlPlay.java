@@ -305,22 +305,11 @@ public class CtrlPlay implements Initializable {
 
         // Seleccionar un color basat en l'objectId
         Color color;
-        switch (objectId.toLowerCase()) {
-            case "red":
-                color = Color.RED;
-                break;
-            case "blue":
-                color = Color.BLUE;
-                break;
-            case "green":
-                color = Color.GREEN;
-                break;
-            case "yellow":
-                color = Color.YELLOW;
-                break;
-            default:
-                color = Color.GRAY;
-                break;
+        
+        if (objectId.startsWith("A") ){
+            color = Color.LIGHTBLUE;
+        } else {
+            color = Color.LIGHTGREEN;
         }
 
         // Dibuixar el rectangle

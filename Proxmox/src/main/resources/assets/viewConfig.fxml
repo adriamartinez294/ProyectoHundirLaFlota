@@ -12,14 +12,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="384.0" minWidth="599.0" prefHeight="431.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlConfig">
+<AnchorPane fx:id="anchor" minHeight="420.0" minWidth="655.0" prefHeight="420.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlConfig">
    <children>
-      <ImageView fitHeight="459.0" fitWidth="672.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="420.0" fitWidth="670.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@fondo_waiting.jpg" />
          </image>
       </ImageView>
-      <VBox alignment="CENTER" prefHeight="431.0" prefWidth="672.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="420.0" prefWidth="655.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="HUNDIR LA FLOTA" textAlignment="CENTER" VBox.vgrow="NEVER">
                <font>
@@ -147,7 +147,7 @@
             </Label>
             <Pane prefHeight="104.0" prefWidth="672.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button alignment="CENTER" layoutX="218.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="46.0" prefWidth="236.0" style="-fx-background-color: Goldenrod; -fx-background-radius: 50px; -fx-border-color: DarkGoldenrod; -fx-border-radius: 25; -fx-border-width: 3;" text="PLAY!" textAlignment="CENTER" textFill="WHITE">
+                  <Button alignment="CENTER" layoutX="202.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="46.0" prefWidth="236.0" style="-fx-background-color: Goldenrod; -fx-background-radius: 50px; -fx-border-color: DarkGoldenrod; -fx-border-radius: 25; -fx-border-width: 3;" text="PLAY!" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
