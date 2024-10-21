@@ -47,6 +47,8 @@ public class CtrlPlay implements Initializable {
 
     public boolean playersReady = false;
 
+    private boolean[][] waterCells;
+
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
 
@@ -70,6 +72,7 @@ public class CtrlPlay implements Initializable {
         // Define grid
         grid = new PlayGrid(150, 25, 25, 10, 10);
 
+        waterCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
         // Start run/draw timer bucle
         animationTimer = new PlayTimer(this::run, this::draw, 0);
         start();
@@ -180,47 +183,27 @@ public class CtrlPlay implements Initializable {
         else if (playersReady) {
             int col = grid.getCol(mouseX);
             int row = grid.getRow(mouseY);
-
+            System.out.println("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
+            System.out.println("Calculated Col: " + col + ", Calculated Row: " + row);
 
             fillWater(col, row);
         }
     }  
     
     private void fillWater(int col, int row) {
-    
         // Log the col and row to ensure they are valid
         System.out.println("Col: " + col + ", Row: " + row);
 
-        if (col < 0 || row < 0) {
+        if (col < 0 || row < 0 || col >= grid.getCols() || row >= grid.getRows()) {
             System.out.println("Error: posición fuera de la cuadrícula.");
             return;
         }
-    
-        double cellX = grid.getCellX(col);
-        double cellY = grid.getCellY(row);
-    
-        // Log the calculated positions
-        System.out.println("Cell X: " + cellX + ", Cell Y: " + cellY);
-    
-        // Ensure grid.getCellSize() is valid
-        double cellSize = grid.getCellSize();
-        System.out.println("Cell Size: " + cellSize);
-    
-        // Check if cellSize is greater than 0
-        if (cellSize <= 0) {
-            System.out.println("Error: Cell size must be greater than 0.");
-            return;
-        }
 
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-    
-        // Draw light blue rectangle for water
-        gc.setFill(Color.LIGHTBLUE);
-        gc.fillRect(cellX, cellY, cellSize, cellSize);
-    
-        // Draw black border
-        gc.setStroke(Color.BLACK);
-        gc.strokeRect(cellX, cellY, cellSize, cellSize);
+        // Update the state to mark this cell as filled
+        waterCells[row][col] = true;
+
+        // Redraw the grid and filled cells
+        drawGrid();
     }
 
     private void onMouseDragged(MouseEvent event) {
@@ -329,12 +312,11 @@ public class CtrlPlay implements Initializable {
             int col = position.getInt("col");
             int row = position.getInt("row");
 
-            // Comprovar si està dins dels límits de la graella
             if (row >= 0 && col >= 0) {
                 if ("A".equals(clientId)) {
-                    gc.setFill(Color.LIGHTBLUE); 
+                    gc.setFill(Color.LIGHTBLUE);s
                 } else {
-                    gc.setFill(Color.LIGHTGREEN); 
+                    gc.setFill(Color.LIGHTGREEN);s
                 }
                 // Emplenar la casella amb el color clar
                 gc.fillRect(grid.getCellX(col), grid.getCellY(row), grid.getCellSize(), grid.getCellSize());
@@ -376,6 +358,17 @@ public class CtrlPlay implements Initializable {
                 double x = grid.getStartX() + col * cellSize;
                 double y = grid.getStartY() + row * cellSize;
                 gc.strokeRect(x, y, cellSize, cellSize);
+            }
+        }
+
+        for (int row = 0; row < waterCells.length; row++) {
+            for (int col = 0; col < waterCells[0].length; col++) {
+                if (waterCells[row][col]) {
+                    gc.setFill(Color.BLUE); // Use blue to represent water
+                    double x = grid.getStartX() + col * grid.getCellSize();
+                    double y = grid.getStartY() + row * grid.getCellSize();
+                    gc.fillRect(x, y, grid.getCellSize(), grid.getCellSize()); // Fill water cell
+                }
             }
         }
     }

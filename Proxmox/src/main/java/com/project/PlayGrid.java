@@ -60,11 +60,11 @@ public class PlayGrid {
         return (int) ((y - startY) / cellSize);
     }
 
-    public int getCellX(int col) {
+    public double getCellX(int col) {
         return (int) (getStartX() + col * getCellSize());
     }
 
-    public int getCellY(int row) {
+    public double getCellY(int row) {
         return (int) (getStartY() + row * getCellSize());
     }
 
