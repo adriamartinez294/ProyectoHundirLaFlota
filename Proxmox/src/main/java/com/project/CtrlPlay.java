@@ -154,7 +154,7 @@ public class CtrlPlay implements Initializable {
                 int rows = obj.getInt("rows");
     
                 if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows)) {
-                    if (event.isPrimaryButtonDown() && obj.getString("player".equals(this.clientId))) {
+                    if (event.isPrimaryButtonDown() && obj.getString("player").equals(this.clientId)) {
                         selectedObject = objectId;
                         mouseDragging = true;
                         mouseOffsetX = event.getX() - objX;
@@ -182,14 +182,11 @@ public class CtrlPlay implements Initializable {
             int row = grid.getRow(mouseY);
 
 
-            fillWater(this.gc, col, row);
+            fillWater(col, row);
         }
     }  
     
-    private void fillWater(GraphicsContext gc, int col, int row) {
-        // Test Rect
-        gc.setFill(Color.RED);
-        gc.fillRect(50, 50, 100, 100); 
+    private void fillWater(int col, int row) {
     
         // Log the col and row to ensure they are valid
         System.out.println("Col: " + col + ", Row: " + row);
@@ -214,6 +211,8 @@ public class CtrlPlay implements Initializable {
             System.out.println("Error: Cell size must be greater than 0.");
             return;
         }
+
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     
         // Draw light blue rectangle for water
         gc.setFill(Color.LIGHTBLUE);
