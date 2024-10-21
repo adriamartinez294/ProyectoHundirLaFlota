@@ -145,36 +145,75 @@ public class CtrlPlay implements Initializable {
 
         selectedObject = "";
         mouseDragging = false;
-
-        for (String objectId : selectableObjects.keySet()) {
-            JSONObject obj = selectableObjects.get(objectId);
-            int objX = obj.getInt("x");
-            int objY = obj.getInt("y");
-            int cols = obj.getInt("cols");
-            int rows = obj.getInt("rows");
-
-            if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows) && playersReady == false) {
-                if (event.isPrimaryButtonDown()) {
-                    selectedObject = objectId;
-                    mouseDragging = true;
-                    mouseOffsetX = event.getX() - objX;
-                    mouseOffsetY = event.getY() - objY;
-                    break;
-                }
-
-                else if (event.isSecondaryButtonDown() && playersReady) {
-                    obj.put("cols", rows);
-                    obj.put("rows", cols);
+        if (!playersReady) {
+            for (String objectId : selectableObjects.keySet()) {
+                JSONObject obj = selectableObjects.get(objectId);
+                int objX = obj.getInt("x");
+                int objY = obj.getInt("y");
+                int cols = obj.getInt("cols");
+                int rows = obj.getInt("rows");
     
-                    for (String objectid2 : selectableObjects.keySet()) {
-                        JSONObject selectableObject = selectableObjects.get(objectId);
-                        drawSelectableObject(objectId, selectableObject);
+                if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows)) {
+                    if (event.isPrimaryButtonDown()) {
+                        selectedObject = objectId;
+                        mouseDragging = true;
+                        mouseOffsetX = event.getX() - objX;
+                        mouseOffsetY = event.getY() - objY;
+                        break;
                     }
-
-                    break;
+    
+                    else if (event.isSecondaryButtonDown()) {
+                        obj.put("cols", rows);
+                        obj.put("rows", cols);
+        
+                        for (String objectid2 : selectableObjects.keySet()) {
+                            JSONObject selectableObject = selectableObjects.get(objectId);
+                            drawSelectableObject(objectId, selectableObject);
+                        }
+    
+                        break;
+                    }
                 }
             }
         }
+
+        else if (playersReady) {
+                System.out.println("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
+
+                if (gc == null) {
+                    System.out.println("Error: GraphicsContext (gc) es nulo.");
+                    return;
+                }
+
+                int col = grid.getCol(mouseX);
+                int row = grid.getRow(mouseY);
+
+                System.out.println("Row: " + row + ", Col: " + col);
+
+                pintarAgua(this.gc, col, row);
+            
+            }
+        }          
+
+    private void pintarAgua(GraphicsContext gc, int col, int row) {
+
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        double cellX = grid.getCellX(col);
+        double cellY = grid.getCellY(row);
+
+        System.out.println(cellX + ", " + cellY);
+
+        gc.setFill(Color.RED);
+        gc.fillRect(50, 50, 100, 100);
+
+        gc.setFill(Color.LIGHTBLUE);
+    
+        gc.fillRect(cellX, cellY, grid.getCellSize(), grid.getCellSize());
+        
+        gc.stroke();
+
+        System.out.println("acaba de llamarse");
     }
 
     private void onMouseDragged(MouseEvent event) {
