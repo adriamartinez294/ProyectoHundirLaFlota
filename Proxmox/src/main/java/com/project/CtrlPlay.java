@@ -154,7 +154,7 @@ public class CtrlPlay implements Initializable {
                 int rows = obj.getInt("rows");
     
                 if (isPositionInsideObject(mouseX, mouseY, objX, objY,  cols, rows)) {
-                    if (event.isPrimaryButtonDown()) {
+                    if (event.isPrimaryButtonDown() && obj.getString("player".equals(this.clientId))) {
                         selectedObject = objectId;
                         mouseDragging = true;
                         mouseOffsetX = event.getX() - objX;
@@ -178,42 +178,50 @@ public class CtrlPlay implements Initializable {
         }
 
         else if (playersReady) {
-                System.out.println("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
+            int col = grid.getCol(mouseX);
+            int row = grid.getRow(mouseY);
 
-                if (gc == null) {
-                    System.out.println("Error: GraphicsContext (gc) es nulo.");
-                    return;
-                }
 
-                int col = grid.getCol(mouseX);
-                int row = grid.getRow(mouseY);
+            fillWater(this.gc, col, row);
+        }
+    }  
+    
+    private void fillWater(GraphicsContext gc, int col, int row) {
+        // Test Rect
+        gc.setFill(Color.RED);
+        gc.fillRect(50, 50, 100, 100); 
+    
+        // Log the col and row to ensure they are valid
+        System.out.println("Col: " + col + ", Row: " + row);
 
-                System.out.println("Row: " + row + ", Col: " + col);
-
-                pintarAgua(this.gc, col, row);
-            
-            }
-        }          
-
-    private void pintarAgua(GraphicsContext gc, int col, int row) {
-
-        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
+        if (col < 0 || row < 0) {
+            System.out.println("Error: posición fuera de la cuadrícula.");
+            return;
+        }
+    
         double cellX = grid.getCellX(col);
         double cellY = grid.getCellY(row);
-
-        System.out.println(cellX + ", " + cellY);
-
-        gc.setFill(Color.RED);
-        gc.fillRect(50, 50, 100, 100);
-
-        gc.setFill(Color.LIGHTBLUE);
     
-        gc.fillRect(cellX, cellY, grid.getCellSize(), grid.getCellSize());
-        
-        gc.stroke();
-
-        System.out.println("acaba de llamarse");
+        // Log the calculated positions
+        System.out.println("Cell X: " + cellX + ", Cell Y: " + cellY);
+    
+        // Ensure grid.getCellSize() is valid
+        double cellSize = grid.getCellSize();
+        System.out.println("Cell Size: " + cellSize);
+    
+        // Check if cellSize is greater than 0
+        if (cellSize <= 0) {
+            System.out.println("Error: Cell size must be greater than 0.");
+            return;
+        }
+    
+        // Draw light blue rectangle for water
+        gc.setFill(Color.LIGHTBLUE);
+        gc.fillRect(cellX, cellY, cellSize, cellSize);
+    
+        // Draw black border
+        gc.setStroke(Color.BLACK);
+        gc.strokeRect(cellX, cellY, cellSize, cellSize);
     }
 
     private void onMouseDragged(MouseEvent event) {
