@@ -123,12 +123,10 @@ public class Server extends WebSocketServer {
     }
 
     private void setPlayersReady() {
-
         JSONObject rst0 = new JSONObject();
         rst0.put("type", "playersReady");
         rst0.put("message", "Players Are Ready");
         broadcastMessage(rst0.toString(), null);
-        
     }
 
     private boolean checkIfBothPlayersReady() {
