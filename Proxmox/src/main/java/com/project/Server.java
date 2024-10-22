@@ -31,6 +31,7 @@ public class Server extends WebSocketServer {
 
     private static final List<String> PLAYER_NAMES = Arrays.asList("A", "B");
     private Map<String, Boolean> readyStates = new HashMap<>();
+    private String playerTurn = "A";
 
     private Map<WebSocket, String> clients;
     private List<String> availableNames;
@@ -112,6 +113,11 @@ public class Server extends WebSocketServer {
                         setPlayersReady();
                     }
                     break;
+                case "attack":
+                    String msg = obj.getString("message");
+                    String col = obj.getString("col");
+                    String row = obj.getString("row");
+                    String player = obj.getString("client");
             }
         }
     }

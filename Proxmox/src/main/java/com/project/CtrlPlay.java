@@ -48,6 +48,11 @@ public class CtrlPlay implements Initializable {
     public boolean playersReady = false;
 
     private boolean[][] waterCells;
+    private boolean[][] hitCells;
+
+    private String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
+
+    public String playerTurn = "A";
 
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
@@ -73,6 +78,7 @@ public class CtrlPlay implements Initializable {
         grid = new PlayGrid(150, 25, 25, 10, 10);
 
         waterCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
+        hitCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
         // Start run/draw timer bucle
         animationTimer = new PlayTimer(this::run, this::draw, 0);
         start();
@@ -180,29 +186,43 @@ public class CtrlPlay implements Initializable {
             }
         }
 
-        else if (playersReady) {
+        else if (playersReady && playerTurn.equals(this.clientId)) {
             int col = grid.getCol(mouseX);
             int row = grid.getRow(mouseY);
             System.out.println("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
             System.out.println("Calculated Col: " + col + ", Calculated Row: " + row);
 
-            fillWater(col, row);
+            String a = "player " + clientId + " attacked " + letters[col]+row;
+            JSONObject message = new JSONObject();
+            message.put("type", "attack");
+            message.put("message", a);
+            message.put("col", col);
+            message.put("row", row);
+            message.put("client", clientId);
+
+            client.send(message.toString());
         }
-    }  
+    }
     
     private void fillWater(int col, int row) {
-        // Log the col and row to ensure they are valid
         System.out.println("Col: " + col + ", Row: " + row);
 
         if (col < 0 || row < 0 || col >= grid.getCols() || row >= grid.getRows()) {
             System.out.println("Error: posición fuera de la cuadrícula.");
             return;
         }
-
-        // Update the state to mark this cell as filled
         waterCells[row][col] = true;
+        drawGrid();
+    }
 
-        // Redraw the grid and filled cells
+    private void fillHit(int col, int row) {
+        System.out.println("Col: " + col + ", Row: " + row);
+
+        if (col < 0 || row < 0 || col >= grid.getCols() || row >= grid.getRows()) {
+            System.out.println("Error: posición fuera de la cuadrícula.");
+            return;
+        }
+        hitCells[row][col] = true;
         drawGrid();
     }
 
@@ -314,9 +334,9 @@ public class CtrlPlay implements Initializable {
 
             if (row >= 0 && col >= 0) {
                 if ("A".equals(clientId)) {
-                    gc.setFill(Color.LIGHTBLUE);s
+                    gc.setFill(Color.LIGHTBLUE);
                 } else {
-                    gc.setFill(Color.LIGHTGREEN);s
+                    gc.setFill(Color.LIGHTGREEN);
                 }
                 // Emplenar la casella amb el color clar
                 gc.fillRect(grid.getCellX(col), grid.getCellY(row), grid.getCellSize(), grid.getCellSize());
@@ -364,11 +384,26 @@ public class CtrlPlay implements Initializable {
         for (int row = 0; row < waterCells.length; row++) {
             for (int col = 0; col < waterCells[0].length; col++) {
                 if (waterCells[row][col]) {
-                    gc.setFill(Color.BLUE); // Use blue to represent water
+                    gc.setFill(Color.BLUE);
                     double x = grid.getStartX() + col * grid.getCellSize();
                     double y = grid.getStartY() + row * grid.getCellSize();
-                    gc.fillRect(x, y, grid.getCellSize(), grid.getCellSize()); // Fill water cell
+                    gc.fillRect(x, y, grid.getCellSize(), grid.getCellSize());
+                    gc.setStroke(Color.BLACK);
+                    gc.strokeRect(x, y, grid.getCellSize(), grid.getCellSize());
                 }
+            }
+        }
+
+        for (int row = 0; row < hitCells.length; row++) {
+            for (int col = 0; col < hitCells[0].length; col++) {
+                if (hitCells[row][col]) {
+                    gc.setFill(Color.RED);
+                    double x = grid.getStartX() + col * grid.getCellSize();
+                    double y = grid.getStartY() + row * grid.getCellSize();
+                    gc.fillRect(x, y, grid.getCellSize(), grid.getCellSize());
+                    gc.setStroke(Color.BLACK);
+                    gc.strokeRect(x, y, grid.getCellSize(), grid.getCellSize());
+                }  
             }
         }
     }
