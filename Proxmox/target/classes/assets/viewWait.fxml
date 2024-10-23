@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="384.0" minWidth="600.0" style="-fx-background-image: url(&quot;waiting-fondo.jpg&quot;);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlWait">
+<AnchorPane fx:id="anchor" minHeight="430.0" minWidth="600.0" style="-fx-background-image: url(&quot;waiting-fondo.jpg&quot;);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlWait">
    <children>
       <ImageView fx:id="fondo" fitHeight="459.0" fitWidth="672.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
