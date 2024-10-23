@@ -28,6 +28,7 @@ public class ClientFX extends Application {
     public static CtrlConfig ctrlConfig;
     public static CtrlWait ctrlWait;
     public static CtrlPlay ctrlPlay;
+    public static CtrlWinner ctrlWinner;
     
 
     public static void main(String[] args) {
@@ -46,10 +47,12 @@ public class ClientFX extends Application {
         UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
         UtilsViews.addView(getClass(), "ViewWait", "/assets/viewWait.fxml");
         UtilsViews.addView(getClass(), "ViewPlay", "/assets/viewPlay.fxml");
+        UtilsViews.addView(getClass(), "ViewWinner", "/assets/viewWinner.fxml");
 
         ctrlConfig = (CtrlConfig) UtilsViews.getController("ViewConfig");
         ctrlWait = (CtrlWait) UtilsViews.getController("ViewWait");
         ctrlPlay = (CtrlPlay) UtilsViews.getController("ViewPlay");
+        ctrlWinner = (CtrlWinner) UtilsViews.getController("ViewWinner");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
         
@@ -179,6 +182,7 @@ public class ClientFX extends Application {
 
                 if (land.equals("hit")){
                     ctrlPlay.fillHit(col2, row2);
+                    
                 }
                 else{
                     ctrlPlay.fillWater(col2, row2);
@@ -187,6 +191,13 @@ public class ClientFX extends Application {
                 String player = msgObj.getString("toplayer");
 
                 ctrlPlay.setPlayerTurn(player);
+                break;
+            case "gameover":
+                String winner = msgObj.getString("winner");
+
+                ctrlWinner.setWinner(winner);
+                UtilsViews.setViewAnimating("ViewWinner");
+                break;
         }
     }
 

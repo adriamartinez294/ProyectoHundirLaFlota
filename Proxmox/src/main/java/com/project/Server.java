@@ -39,6 +39,9 @@ public class Server extends WebSocketServer {
 
     private static Map<String, JSONObject> selectableObjects = new HashMap<>();
 
+    private int shipSlotsPlayer_A = 16;
+    private int shipSlotsPlayer_B = 16;
+
     public Server(InetSocketAddress address) {
         super(address);
         clients = new ConcurrentHashMap<>();
@@ -138,6 +141,16 @@ public class Server extends WebSocketServer {
                     String attackLand = obj.getString("message");
                     int col2 = obj.getInt("col");
                     int row2 = obj.getInt("row");
+                    String client = obj.getString("player");
+
+                    if (attackLand.equals("hit")) {
+                        if (client == "A") {
+                            shipSlotsPlayer_A--;
+                        }
+                        else {
+                            shipSlotsPlayer_B--;
+                        }
+                    }
 
                     JSONObject b = new JSONObject();
                     b.put("type", "endAttack");
@@ -147,19 +160,35 @@ public class Server extends WebSocketServer {
 
                     sendPrivateMessage(playerTurn, b.toString(), null);
 
-                    JSONObject changeturn = new JSONObject();
-                    changeturn.put("type","changeturn");
-                    if (playerTurn == "A"){
-                        playerTurn = "B";
-                        changeturn.put("toplayer", playerTurn);
+
+                    if (shipSlotsPlayer_A > 0 && shipSlotsPlayer_B > 0) {
+                        JSONObject changeturn = new JSONObject();
+                        changeturn.put("type","changeturn");
+                        if (playerTurn == "A"){
+                            playerTurn = "B";
+                            changeturn.put("toplayer", playerTurn);
+                        }
+                        else{
+                            playerTurn = "A";
+                            changeturn.put("toplayer", playerTurn);
+                        }
+
+                        broadcastMessage(changeturn.toString(), null);
                     }
+
                     else{
-                        playerTurn = "A";
-                        changeturn.put("toplayer", playerTurn);
+                        String winner;
+                        JSONObject gv = new JSONObject();
+                        gv.put("type","gameover");
+                        if (shipSlotsPlayer_A > shipSlotsPlayer_B) {
+                            winner = "A";
+                        }
+                        else {
+                            winner = "B";
+                        }
+                        gv.put("winner", winner);
+                        broadcastMessage(gv.toString(), null);
                     }
-
-                    broadcastMessage(changeturn.toString(), null);
-
 
 
             }

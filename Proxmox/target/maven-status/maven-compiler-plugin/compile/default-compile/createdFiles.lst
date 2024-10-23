@@ -5,6 +5,7 @@ com/project/Server.class
 com/project/CtrlWait.class
 com/project/PlayTimer.class
 com/project/ClientFX$2.class
+com/project/CtrlWinner.class
 com/project/UtilsWS$1.class
 com/project/PlayGrid.class
 com/project/CtrlPlay.class
