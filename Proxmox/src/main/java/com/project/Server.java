@@ -39,6 +39,9 @@ public class Server extends WebSocketServer {
 
     private static Map<String, JSONObject> selectableObjects = new HashMap<>();
 
+    private int shipSlotsPlayer_A = 16;
+    private int shipSlotsPlayer_B = 16;
+
     public Server(InetSocketAddress address) {
         super(address);
         clients = new ConcurrentHashMap<>();
@@ -138,6 +141,16 @@ public class Server extends WebSocketServer {
                     String attackLand = obj.getString("message");
                     int col2 = obj.getInt("col");
                     int row2 = obj.getInt("row");
+                    String client = obj.getString("player");
+
+                    if (attackLand.equals("hit")) {
+                        if (client == "A") {
+                            shipSlotsPlayer_A--;
+                        }
+                        else {
+                            shipSlotsPlayer_B--;
+                        }
+                    }
 
                     JSONObject b = new JSONObject();
                     b.put("type", "endAttack");

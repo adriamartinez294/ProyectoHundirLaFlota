@@ -175,6 +175,7 @@ public class ClientFX extends Application {
 
                 if (land.equals("hit")){
                     ctrlPlay.fillHit(col2, row2);
+                    
                 }
                 else{
                     ctrlPlay.fillWater(col2, row2);
