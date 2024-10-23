@@ -160,19 +160,35 @@ public class Server extends WebSocketServer {
 
                     sendPrivateMessage(playerTurn, b.toString(), null);
 
-                    JSONObject changeturn = new JSONObject();
-                    changeturn.put("type","changeturn");
-                    if (playerTurn == "A"){
-                        playerTurn = "B";
-                        changeturn.put("toplayer", playerTurn);
+
+                    if (shipSlotsPlayer_A > 0 && shipSlotsPlayer_B > 0) {
+                        JSONObject changeturn = new JSONObject();
+                        changeturn.put("type","changeturn");
+                        if (playerTurn == "A"){
+                            playerTurn = "B";
+                            changeturn.put("toplayer", playerTurn);
+                        }
+                        else{
+                            playerTurn = "A";
+                            changeturn.put("toplayer", playerTurn);
+                        }
+
+                        broadcastMessage(changeturn.toString(), null);
                     }
+
                     else{
-                        playerTurn = "A";
-                        changeturn.put("toplayer", playerTurn);
+                        String winner;
+                        JSONObject gv = new JSONObject();
+                        gv.put("type","gameover");
+                        if (shipSlotsPlayer_A > shipSlotsPlayer_B) {
+                            winner = "A";
+                        }
+                        else {
+                            winner = "B";
+                        }
+                        gv.put("winner", winner);
+                        broadcastMessage(gv.toString(), null);
                     }
-
-                    broadcastMessage(changeturn.toString(), null);
-
 
 
             }
