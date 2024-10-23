@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.animation.PauseTransition;
@@ -66,8 +67,8 @@ public class ClientFX extends Application {
         stage.onCloseRequestProperty(); // Call close method when closing window
         stage.setTitle("JavaFX - NodeJS");
         stage.setMinWidth(windowWidth);
-        stage.setMinHeight(windowHeight);
         stage.setMaxWidth(windowWidth);
+        stage.setMinHeight(windowHeight);
         stage.setMaxHeight(windowHeight);
         stage.show();
 
@@ -149,6 +150,8 @@ public class ClientFX extends Application {
                     UtilsViews.setViewAnimating("ViewPlay");
                     txt = "GO";
                 }
+                ctrlWait.txtTitle.setGraphic(null);
+                ctrlWait.txtTitle.setAlignment(Pos.CENTER);
                 ctrlWait.txtTitle.setText(txt);
                 break;
             case "serverMouseMoving":

@@ -259,6 +259,9 @@ public class CtrlPlay implements Initializable {
         // Draw grid
         drawGrid();
 
+        grid.drawColumnNumbers(gc);
+        grid.drawRowLetters(gc);
+
         // Draw selectable objects
         for (String objectId : selectableObjects.keySet()) {
             JSONObject selectableObject = selectableObjects.get(objectId);

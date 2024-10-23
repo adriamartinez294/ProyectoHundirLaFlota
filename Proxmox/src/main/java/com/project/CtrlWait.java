@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 public class CtrlWait implements Initializable {
 
@@ -17,6 +18,9 @@ public class CtrlWait implements Initializable {
 
     @FXML
     public Label txtPlayer1;
+
+    @FXML
+    public ImageView gifCargando;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
