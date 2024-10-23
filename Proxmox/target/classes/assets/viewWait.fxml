@@ -12,29 +12,36 @@
 
 <AnchorPane fx:id="anchor" minHeight="384.0" minWidth="600.0" style="-fx-background-image: url(&quot;waiting-fondo.jpg&quot;);" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlWait">
    <children>
-      <ImageView fitHeight="459.0" fitWidth="672.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="459.0" fitWidth="672.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@fondo_waiting.jpg" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-image: url('file:waiting-fondo.jpg');" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label fx:id="txtTitle" alignment="CENTER" prefHeight="63.0" prefWidth="600.0" style="-fx-background-color: #926100; -fx-border-width: 6px; -fx-border-color: #926100;" text="Waiting for players ..." textFill="WHITE" VBox.vgrow="NEVER">
-               <font>
-                  <Font name="Monospaced Bold" size="34.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="100.0" />
-               </VBox.margin>
+            <Label fx:id="txtTitle" contentDisplay="RIGHT" graphicTextGap="10" prefHeight="49.0" prefWidth="497.0" style="-fx-background-color: goldenrod; -fx-border-width: 4; -fx-border-color: darkgoldenrod;" text=" Waiting for players" textFill="WHITE" VBox.vgrow="NEVER">
+                  <font>
+                     <Font name="Monospaced Bold" size="34.0" />
+                  </font>
+                  <VBox.margin>
+                     <Insets top="100.0" />
+                  </VBox.margin>
+                  <graphic>
+                     <ImageView fx:id="gifCargando" fitHeight="33.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                              <Image url="@Cargando.gif" />
+                        </image>
+                     </ImageView>
+                  </graphic>
             </Label>
-            <Pane prefHeight="163.0" prefWidth="600.0" style="-fx-background-image: url('file:waiting-fondo.jpg');" />
-            <HBox alignment="CENTER" prefHeight="118.0" prefWidth="500.0" style="-fx-background-color: #926100; -fx-border-color: #daaa2a; -fx-border-width: 3px;" VBox.vgrow="NEVER">
+            <Pane prefHeight="163.0" prefWidth="672.0" style="-fx-background-image: url('file:fondo_waiting.jpg');" />
+            <HBox alignment="CENTER" prefHeight="118.0" prefWidth="500.0" style="-fx-background-color: goldenrod; -fx-border-color: darkgoldenrod; -fx-border-width: 4px;" VBox.vgrow="NEVER">
                <children>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label fx:id="txtPlayer0" text="?" textFill="WHITE">
                            <font>
-                              <Font name="Monospaced Bold" size="90.0" />
+                              <Font name="Monospaced Bold" size="50.0" />
                            </font>
                            <padding>
                               <Insets right="8.0" />
@@ -49,7 +56,7 @@
                               <Insets right="8.0" />
                            </padding>
                            <font>
-                              <Font name="Monospaced Bold" size="86.0" />
+                              <Font name="Monospaced Bold" size="50.0" />
                            </font>
                         </Label>
                      </children>
@@ -59,7 +66,7 @@
                   <Insets bottom="8.0" top="8.0" />
                </VBox.margin>
             </HBox>
-            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('id:waiting-fondo.jpg');" />
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-image: url('id:fondo_waiting.jpg');" />
          </children>
       </VBox>
    </children>

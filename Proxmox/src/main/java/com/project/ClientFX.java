@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.geometry.Pos;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.animation.PauseTransition;
@@ -26,6 +27,7 @@ public class ClientFX extends Application {
     public static CtrlConfig ctrlConfig;
     public static CtrlWait ctrlWait;
     public static CtrlPlay ctrlPlay;
+    
 
     public static void main(String[] args) {
 
@@ -36,8 +38,8 @@ public class ClientFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        final int windowWidth = 400;
-        final int windowHeight = 300;
+        final int windowWidth = 655;
+        final int windowHeight = 420;
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
@@ -65,7 +67,9 @@ public class ClientFX extends Application {
         stage.onCloseRequestProperty(); // Call close method when closing window
         stage.setTitle("JavaFX - NodeJS");
         stage.setMinWidth(windowWidth);
+        stage.setMaxWidth(windowWidth);
         stage.setMinHeight(windowHeight);
+        stage.setMaxHeight(windowHeight);
         stage.show();
 
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
@@ -145,6 +149,8 @@ public class ClientFX extends Application {
                     UtilsViews.setViewAnimating("ViewPlay");
                     txt = "GO";
                 }
+                ctrlWait.txtTitle.setGraphic(null);
+                ctrlWait.txtTitle.setAlignment(Pos.CENTER);
                 ctrlWait.txtTitle.setText(txt);
                 break;
             case "serverMouseMoving":
