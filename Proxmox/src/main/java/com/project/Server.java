@@ -115,9 +115,53 @@ public class Server extends WebSocketServer {
                     break;
                 case "attack":
                     String msg = obj.getString("message");
-                    String col = obj.getString("col");
-                    String row = obj.getString("row");
+                    int col = obj.getInt("col");
+                    int row = obj.getInt("row");
                     String player = obj.getString("client");
+
+                    JSONObject a = new JSONObject();
+                    a.put("type", "waitingResponse");
+                    a.put("message", msg);
+                    a.put("col", col);
+                    a.put("row", row);
+                    
+
+                    if (player == "A") {
+                        sendPrivateMessage("B", a.toString(), null);
+                    }
+                    else{
+                        sendPrivateMessage("A", a.toString(), null);
+                    }
+                    break;
+
+                case "response":
+                    String attackLand = obj.getString("message");
+                    int col2 = obj.getInt("col");
+                    int row2 = obj.getInt("row");
+
+                    JSONObject b = new JSONObject();
+                    b.put("type", "endAttack");
+                    b.put("message", attackLand);
+                    b.put("col", col2);
+                    b.put("row", row2);
+
+                    sendPrivateMessage(playerTurn, b.toString(), null);
+
+                    JSONObject changeturn = new JSONObject();
+                    changeturn.put("type","changeturn");
+                    if (playerTurn == "A"){
+                        playerTurn = "B";
+                        changeturn.put("toplayer", playerTurn);
+                    }
+                    else{
+                        playerTurn = "A";
+                        changeturn.put("toplayer", playerTurn);
+                    }
+
+                    broadcastMessage(changeturn.toString(), null);
+
+
+
             }
         }
     }

@@ -203,8 +203,34 @@ public class CtrlPlay implements Initializable {
             client.send(message.toString());
         }
     }
+
+    public void checkHitWater(int col, int row) {
+        JSONObject message = new JSONObject();
+        message.put("type", "response");
+        double cellX = grid.getCellX(col);
+        double cellY = grid.getCellY(row);
+        for (String objectId : selectableObjects.keySet()) {
+            JSONObject obj = selectableObjects.get(objectId);
+            int objX = obj.getInt("x");
+            int objY = obj.getInt("y");
+            int cols = obj.getInt("cols");
+            int rows = obj.getInt("rows");
+
+            if (isPositionInsideObject(cellX, cellY, objX, objY,  cols, rows)) {
+                message.put("message", "hit");
+                break;
+            }
+            else {
+                message.put("message", "water");
+            }
+        }
+
+        message.put("col", col);
+        message.put("row", row);
+        client.send(message.toString());
+    }
     
-    private void fillWater(int col, int row) {
+    public void fillWater(int col, int row) {
         System.out.println("Col: " + col + ", Row: " + row);
 
         if (col < 0 || row < 0 || col >= grid.getCols() || row >= grid.getRows()) {
@@ -215,7 +241,7 @@ public class CtrlPlay implements Initializable {
         drawGrid();
     }
 
-    private void fillHit(int col, int row) {
+    public void fillHit(int col, int row) {
         System.out.println("Col: " + col + ", Row: " + row);
 
         if (col < 0 || row < 0 || col >= grid.getCols() || row >= grid.getRows()) {
@@ -224,6 +250,10 @@ public class CtrlPlay implements Initializable {
         }
         hitCells[row][col] = true;
         drawGrid();
+    }
+
+    public void setPlayerTurn(String playerTurn) {
+        this.playerTurn = playerTurn;
     }
 
     private void onMouseDragged(MouseEvent event) {

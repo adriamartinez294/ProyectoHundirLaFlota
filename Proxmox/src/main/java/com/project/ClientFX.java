@@ -156,6 +156,27 @@ public class ClientFX extends Application {
             case "playersReady":
                 ctrlPlay.playersReady = true;
                 ctrlPlay.waiting.setVisible(false);
+                break;
+            case "waitingResponse":
+                int col = msgObj.getInt("col");
+                int row = msgObj.getInt("row");
+                ctrlPlay.checkHitWater(col, row);
+                break;
+            case "endAttack":
+                String land = msgObj.getString("message");
+                int col2 = msgObj.getInt("col");
+                int row2 = msgObj.getInt("row");
+
+                if (land.equals("hit")){
+                    ctrlPlay.fillHit(col2, row2);
+                }
+                else{
+                    ctrlPlay.fillWater(col2, row2);
+                }
+            case "changeturn":
+                String player = msgObj.getString("toplayer");
+
+                ctrlPlay.setPlayerTurn(player);
         }
     }
 
