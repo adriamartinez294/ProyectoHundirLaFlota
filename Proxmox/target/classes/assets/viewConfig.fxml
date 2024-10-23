@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchor" minHeight="420.0" minWidth="655.0" prefHeight="420.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlConfig">
+<AnchorPane fx:id="anchor" minHeight="430.0" minWidth="655.0" prefHeight="420.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlConfig">
    <children>
-      <ImageView fx:id="fondo" fitHeight="420.0" fitWidth="670.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="430.0" fitWidth="670.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@fondo_waiting.jpg" />
          </image>
