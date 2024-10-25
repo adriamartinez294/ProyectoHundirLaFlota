@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="anchor" minHeight="430.0" minWidth="672.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlWinner">
    <children>
-      <ImageView fx:id="fondo" fitHeight="450.0" fitWidth="672.0" opacity="0.9" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="450.0" fitWidth="672.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@fondo_waiting.jpg" />
          </image>
@@ -20,9 +20,9 @@
             <Font name="Noto Serif Tamil Slanted Bold" size="48.0" />
          </font>
       </Label>
-      <Text fx:id="winnerText" layoutX="72.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="540.1300010681152">
+      <Text fx:id="winnerText" fill="#3c3c3a" layoutX="66.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="540.1300010681152">
          <font>
-            <Font name="Noto Serif Tamil Slanted Bold" size="38.0" />
+            <Font name="DejaVu Serif Bold" size="71.0" />
          </font>
       </Text>
       <Button layoutX="204.0" layoutY="321.0" mnemonicParsing="false" onAction="#backToLobby" prefHeight="60.0" prefWidth="263.0" style="-fx-background-color: goldenrod; -fx-border-color: darkgoldenrod; -fx-border-width: 3; -fx-border-radius: 50; -fx-background-radius: 50;" text="BACK TO LOBBY" textFill="WHITE">
