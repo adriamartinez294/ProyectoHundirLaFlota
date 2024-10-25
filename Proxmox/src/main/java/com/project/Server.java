@@ -39,8 +39,8 @@ public class Server extends WebSocketServer {
 
     private static Map<String, JSONObject> selectableObjects = new HashMap<>();
 
-    private int shipSlotsPlayer_A = 17;
-    private int shipSlotsPlayer_B = 17;
+    private int shipSlotsPlayer_A = 16;
+    private int shipSlotsPlayer_B = 16;
 
     public Server(InetSocketAddress address) {
         super(address);
@@ -225,7 +225,7 @@ public class Server extends WebSocketServer {
                     String msg = obj.getString("message");
                     int col = obj.getInt("col");
                     int row = obj.getInt("row");
-                    String player = obj.getString("client");
+                    String player = clients.get(conn);
 
                     JSONObject a = new JSONObject();
                     a.put("type", "waitingResponse");
@@ -246,14 +246,15 @@ public class Server extends WebSocketServer {
                     String attackLand = obj.getString("message");
                     int col2 = obj.getInt("col");
                     int row2 = obj.getInt("row");
-                    String client = obj.getString("player");
+                    String client = clients.get(conn);
+                    System.out.println(client);
 
                     if (attackLand.equals("hit")) {
                         if (client == "A") {
-                            shipSlotsPlayer_A--;
+                            shipSlotsPlayer_A = shipSlotsPlayer_A - 1;
                         }
                         else {
-                            shipSlotsPlayer_B--;
+                            shipSlotsPlayer_B = shipSlotsPlayer_B - 1;
                         }
                     }
 
@@ -272,16 +273,18 @@ public class Server extends WebSocketServer {
                         if (playerTurn == "A"){
                             playerTurn = "B";
                             changeturn.put("toplayer", playerTurn);
+                            System.out.println(shipSlotsPlayer_A);
                         }
                         else{
                             playerTurn = "A";
                             changeturn.put("toplayer", playerTurn);
+                            System.out.println(shipSlotsPlayer_B);
                         }
 
                         broadcastMessage(changeturn.toString(), null);
                     }
 
-                    else{
+                    if (shipSlotsPlayer_A == 0 || shipSlotsPlayer_B == 0){
                         String winner;
                         JSONObject gv = new JSONObject();
                         gv.put("type","gameover");

@@ -227,7 +227,7 @@ public class CtrlPlay implements Initializable {
 
         message.put("col", col);
         message.put("row", row);
-        message.put("player",clientId);
+        message.put("player",this.clientId);
         client.send(message.toString());
     }
     

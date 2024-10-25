@@ -185,6 +185,7 @@ public class ClientFX extends Application {
                 }
             case "changeturn":
                 String player = msgObj.getString("toplayer");
+                System.out.println(player);
 
                 ctrlPlay.setPlayerTurn(player);
                 break;
