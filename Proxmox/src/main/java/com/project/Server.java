@@ -39,8 +39,8 @@ public class Server extends WebSocketServer {
 
     private static Map<String, JSONObject> selectableObjects = new HashMap<>();
 
-    private int shipSlotsPlayer_A = 17;
-    private int shipSlotsPlayer_B = 17;
+    private int shipSlotsPlayer_A = 16;
+    private int shipSlotsPlayer_B = 16;
 
     public Server(InetSocketAddress address) {
         super(address);
