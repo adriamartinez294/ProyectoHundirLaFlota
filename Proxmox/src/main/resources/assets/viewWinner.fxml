@@ -5,6 +5,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -15,15 +18,47 @@
             <Image url="@fondo_waiting.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" layoutY="14.0" prefHeight="23.0" prefWidth="672.0" text="THE WINNER IS: " textAlignment="CENTER">
+      <Label alignment="CENTER" layoutY="29.0" prefHeight="23.0" prefWidth="672.0" text="WINNER OF THIS MATCH:" textAlignment="CENTER">
          <font>
-            <Font name="Noto Serif Tamil Slanted Bold" size="48.0" />
+            <Font name="DejaVu Serif Bold" size="40.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7365984320640564" green="0.7894737124443054" blue="0.33625730872154236" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
-      <Text fx:id="winnerText" fill="#3c3c3a" layoutX="66.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="540.1300010681152">
+      <Text fx:id="winnerText" layoutX="66.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="540.1300010681152">
          <font>
             <Font name="DejaVu Serif Bold" size="71.0" />
          </font>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7419590353965759" green="0.7894737124443054" blue="0.21929824352264404" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
       </Text>
       <Button layoutX="204.0" layoutY="321.0" mnemonicParsing="false" onAction="#backToLobby" prefHeight="60.0" prefWidth="263.0" style="-fx-background-color: goldenrod; -fx-border-color: darkgoldenrod; -fx-border-width: 3; -fx-border-radius: 50; -fx-background-radius: 50;" text="BACK TO LOBBY" textFill="WHITE">
          <font>
