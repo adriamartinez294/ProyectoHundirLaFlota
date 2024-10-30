@@ -234,11 +234,11 @@ public class Server extends WebSocketServer {
                     a.put("row", row);
                     
 
-                    if (player == "A") {
-                        sendPrivateMessage("B", a.toString(), null);
+                    if (player.equals("A")) {
+                        sendPrivateMessage("B", a.toString(), conn);
                     }
                     else{
-                        sendPrivateMessage("A", a.toString(), null);
+                        sendPrivateMessage("A", a.toString(), conn);
                     }
                     break;
 
@@ -250,8 +250,8 @@ public class Server extends WebSocketServer {
                     System.out.println(client);
 
                     if (attackLand.equals("hit")) {
-                        if (client == "A") {
-                            shipSlotsPlayer_A = shipSlotsPlayer_A - 1;
+                        if (client.equals("A")) {
+                            shipSlotsPlayer_A--;
                         }
                         else {
                             shipSlotsPlayer_B = shipSlotsPlayer_B - 1;
@@ -264,22 +264,19 @@ public class Server extends WebSocketServer {
                     b.put("col", col2);
                     b.put("row", row2);
 
-                    sendPrivateMessage(playerTurn, b.toString(), null);
+                    sendPrivateMessage(playerTurn, b.toString(), conn);
 
 
                     if (shipSlotsPlayer_A > 0 && shipSlotsPlayer_B > 0) {
                         JSONObject changeturn = new JSONObject();
                         changeturn.put("type","changeturn");
-                        if (playerTurn == "A"){
+                        if (playerTurn.equals("A")){
                             playerTurn = "B";
-                            changeturn.put("toplayer", playerTurn);
-                            System.out.println(shipSlotsPlayer_A);
                         }
                         else{
                             playerTurn = "A";
-                            changeturn.put("toplayer", playerTurn);
-                            System.out.println(shipSlotsPlayer_B);
                         }
+                        changeturn.put("toplayer", playerTurn);
 
                         broadcastMessage(changeturn.toString(), null);
                     }
