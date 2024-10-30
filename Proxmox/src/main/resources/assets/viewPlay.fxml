@@ -24,11 +24,11 @@
                   <Font name="Noto Serif Tamil Slanted Bold" size="20.0" />
                </font>
             </Label>
-            <Label prefHeight="59.0" prefWidth="336.0" text="PLAYER A vs PLAYER B" textFill="#d31a1a">
+            <Text fx:id="playerConn" fill="#d31a1a" strokeType="OUTSIDE" strokeWidth="0.0" text="PLAYER" wrappingWidth="147.13000106811523">
                <font>
                   <Font name="Noto Serif Tamil Slanted Bold" size="30.0" />
                </font>
-            </Label>
+            </Text>
             <Canvas fx:id="canvas" height="25.0" width="25.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
@@ -40,6 +40,11 @@
       <Text fx:id="waiting" layoutX="512.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for players..." visible="false" wrappingWidth="222.13000106811523">
          <font>
             <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="playerTurnText" layoutX="14.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player turn: A" visible="false" wrappingWidth="147.13000106811523">
+         <font>
+            <Font name="Noto Serif Tamil Slanted Bold" size="19.0" />
          </font>
       </Text>
    </children>

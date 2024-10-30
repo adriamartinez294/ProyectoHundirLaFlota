@@ -33,6 +33,12 @@ public class CtrlPlay implements Initializable {
     @FXML
     public Text waiting;
 
+    @FXML
+    public Text playerConn;
+
+    @FXML
+    public Text playerTurnText;
+
     private GraphicsContext gc;
     private Boolean showFPS = false;
 
@@ -355,6 +361,8 @@ public class CtrlPlay implements Initializable {
 
         setClientId(ClientFX.getClientId());
         setClient();
+
+        playerConn.setText("Player " + clientId);
 
         // Clean drawing area
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

@@ -169,6 +169,7 @@ public class ClientFX extends Application {
             case "playersReady":
                 ctrlPlay.playersReady = true;
                 ctrlPlay.waiting.setVisible(false);
+                ctrlPlay.playerTurnText.setVisible(true);
                 break;
             case "waitingResponse":
                 int col = msgObj.getInt("col");
@@ -191,6 +192,8 @@ public class ClientFX extends Application {
                 try {
                     String player = msgObj.getString("toplayer");
                     ctrlPlay.setPlayerTurn(player);
+                    ctrlPlay.playerTurnText.setText("Player turn: " + player);
+                    
                 } catch (Exception e) {
                     System.err.println("Error retrieving toplayer: " + e.getMessage());
                     System.out.println("Received message: " + msgObj.toString());
