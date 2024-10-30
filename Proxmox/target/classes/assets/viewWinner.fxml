@@ -43,22 +43,6 @@
          <font>
             <Font name="DejaVu Serif Bold" size="71.0" />
          </font>
-         <fill>
-            <LinearGradient endX="1.0" endY="1.0">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.7419590353965759" green="0.7894737124443054" blue="0.21929824352264404" />
-                     </color>
-                  </Stop>
-               </stops>
-            </LinearGradient>
-         </fill>
       </Text>
       <Button layoutX="204.0" layoutY="321.0" mnemonicParsing="false" onAction="#backToLobby" prefHeight="60.0" prefWidth="263.0" style="-fx-background-color: goldenrod; -fx-border-color: darkgoldenrod; -fx-border-width: 3; -fx-border-radius: 50; -fx-background-radius: 50;" text="BACK TO LOBBY" textFill="WHITE">
          <font>

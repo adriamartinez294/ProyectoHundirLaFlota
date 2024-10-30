@@ -41,7 +41,7 @@ public class ClientFX extends Application {
     public void start(Stage stage) throws Exception {
 
         final int windowWidth = 672;
-        final int windowHeight = 431;
+        final int windowHeight = 460;
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
@@ -72,9 +72,9 @@ public class ClientFX extends Application {
         stage.onCloseRequestProperty(); // Call close method when closing window
         stage.setTitle("JavaFX - NodeJS");
         stage.setMinWidth(windowWidth);
-        //stage.setMaxWidth(windowWidth);
+        stage.setMaxWidth(windowWidth);
         stage.setMinHeight(windowHeight);
-        //stage.setMaxHeight(windowHeight);
+        stage.setMaxHeight(windowHeight);
         stage.show();
 
 
@@ -197,6 +197,7 @@ public class ClientFX extends Application {
 
                 ctrlWinner.setWinner(winner);
                 UtilsViews.setViewAnimating("ViewWinner");
+                
                 break;
         }
     }

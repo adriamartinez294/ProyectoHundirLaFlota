@@ -41,7 +41,7 @@
                      <children>
                         <Label fx:id="txtPlayer0" text="?" textFill="WHITE">
                            <font>
-                              <Font name="Monospaced Bold" size="50.0" />
+                              <Font name="Monospaced Bold" size="40.0" />
                            </font>
                            <padding>
                               <Insets right="8.0" />
@@ -56,7 +56,7 @@
                               <Insets right="8.0" />
                            </padding>
                            <font>
-                              <Font name="Monospaced Bold" size="50.0" />
+                              <Font name="Monospaced Bold" size="40.0" />
                            </font>
                         </Label>
                      </children>
