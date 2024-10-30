@@ -156,6 +156,8 @@ public class ClientFX extends Application {
                     UtilsViews.setViewAnimating("ViewPlay");
                     txt = "GO";
                 }
+
+                ctrlConfig.txtMessage.setText("");
                 ctrlWait.txtTitle.setGraphic(null);
                 ctrlWait.txtTitle.setAlignment(Pos.CENTER);
                 ctrlWait.txtTitle.setText(txt);
