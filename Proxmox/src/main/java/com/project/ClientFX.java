@@ -202,6 +202,9 @@ public class ClientFX extends Application {
                 String winner = msgObj.getString("winner");
 
                 ctrlWinner.setWinner(winner);
+                if (wsClient != null) {
+                    wsClient.forceExit();
+                }
                 UtilsViews.setViewAnimating("ViewWinner");
                 
                 break;

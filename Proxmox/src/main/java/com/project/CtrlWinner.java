@@ -25,7 +25,7 @@ public class CtrlWinner implements Initializable {
 
     @FXML
     private void backToLobby() {
-        ClientFX.wsClient.forceExit();
+        //ClientFX.wsClient.forceExit();
         UtilsViews.setViewAnimating("ViewConfig");
     }
 
