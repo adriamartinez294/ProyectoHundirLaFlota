@@ -39,7 +39,7 @@
       </Button>
       <Text fx:id="waiting" layoutX="512.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Waiting for players..." visible="false" wrappingWidth="222.13000106811523">
          <font>
-            <Font size="28.0" />
+            <Font name="Noto Serif Tamil Slanted Bold" size="28.0" />
          </font>
       </Text>
       <Text fx:id="playerTurnText" layoutX="14.0" layoutY="408.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Player turn: A" visible="false" wrappingWidth="147.13000106811523">
