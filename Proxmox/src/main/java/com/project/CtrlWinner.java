@@ -2,10 +2,9 @@ package com.project;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class CtrlWinner implements Initializable {
@@ -21,7 +20,13 @@ public class CtrlWinner implements Initializable {
     public void setWinner(String winner){
         this.winner = winner;
 
-        winnerText.setText("The winner is: Player " + winner);
+        winnerText.setText("PLAYER " + winner);
+    }
+
+    @FXML
+    private void backToLobby() {
+        ClientFX.wsClient.forceExit();
+        UtilsViews.setViewAnimating("ViewConfig");
     }
 
 }

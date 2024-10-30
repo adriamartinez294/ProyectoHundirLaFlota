@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -39,8 +40,8 @@ public class ClientFX extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        final int windowWidth = 655;
-        final int windowHeight = 430;
+        final int windowWidth = 672;
+        final int windowHeight = 460;
 
         UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
         UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
@@ -54,6 +55,7 @@ public class ClientFX extends Application {
         ctrlWinner = (CtrlWinner) UtilsViews.getController("ViewWinner");
 
         Scene scene = new Scene(UtilsViews.parentContainer);
+        
 
         scene.widthProperty().addListener(new ChangeListener<Number>() {
             @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
@@ -70,10 +72,12 @@ public class ClientFX extends Application {
         stage.onCloseRequestProperty(); // Call close method when closing window
         stage.setTitle("JavaFX - NodeJS");
         stage.setMinWidth(windowWidth);
-        //stage.setMaxWidth(windowWidth);
+        stage.setMaxWidth(windowWidth);
         stage.setMinHeight(windowHeight);
-        //stage.setMaxHeight(windowHeight);
+        stage.setMaxHeight(windowHeight);
         stage.show();
+
+
 
         stage.widthProperty().addListener((obs, oldVal, newVal) -> {
             System.out.println("Width changed: " + newVal);
@@ -197,6 +201,7 @@ public class ClientFX extends Application {
 
                 ctrlWinner.setWinner(winner);
                 UtilsViews.setViewAnimating("ViewWinner");
+                
                 break;
         }
     }

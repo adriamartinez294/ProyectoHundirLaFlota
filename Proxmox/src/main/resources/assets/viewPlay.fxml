@@ -10,18 +10,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchor" minHeight="430.0" minWidth="672.0" prefHeight="459.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlPlay">
+<AnchorPane fx:id="anchor" minHeight="431.0" minWidth="672.0" prefHeight="431.0" prefWidth="672.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.CtrlPlay">
    <children>
-      <ImageView fx:id="fondo" fitHeight="459.0" fitWidth="672.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fondo" fitHeight="450.0" fitWidth="672.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@fondo_waiting.jpg" />
          </image>
       </ImageView>
       <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Label alignment="CENTER" text="HUNDIR LA FLOTA">
+            <Label alignment="CENTER" text="FRIENDLY MATCH:" textFill="#111111">
                <font>
-                  <Font name="Noto Serif Tamil Slanted Bold" size="48.0" />
+                  <Font name="Noto Serif Tamil Slanted Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="59.0" prefWidth="336.0" text="PLAYER A vs PLAYER B" textFill="#d31a1a">
+               <font>
+                  <Font name="Noto Serif Tamil Slanted Bold" size="30.0" />
                </font>
             </Label>
             <Canvas fx:id="canvas" height="25.0" width="25.0" VBox.vgrow="ALWAYS" />
