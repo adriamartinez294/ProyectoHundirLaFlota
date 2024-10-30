@@ -234,11 +234,11 @@ public class Server extends WebSocketServer {
                     a.put("row", row);
                     
 
-                    if (player == "A") {
-                        sendPrivateMessage("B", a.toString(), null);
+                    if (player.equals("A")) {
+                        sendPrivateMessage("B", a.toString(), conn);
                     }
                     else{
-                        sendPrivateMessage("A", a.toString(), null);
+                        sendPrivateMessage("A", a.toString(), conn);
                     }
                     break;
 
@@ -249,7 +249,7 @@ public class Server extends WebSocketServer {
                     String client = obj.getString("player");
 
                     if (attackLand.equals("hit")) {
-                        if (client == "A") {
+                        if (client.equals("A")) {
                             shipSlotsPlayer_A--;
                         }
                         else {
@@ -263,20 +263,19 @@ public class Server extends WebSocketServer {
                     b.put("col", col2);
                     b.put("row", row2);
 
-                    sendPrivateMessage(playerTurn, b.toString(), null);
+                    sendPrivateMessage(playerTurn, b.toString(), conn);
 
 
                     if (shipSlotsPlayer_A > 0 && shipSlotsPlayer_B > 0) {
                         JSONObject changeturn = new JSONObject();
                         changeturn.put("type","changeturn");
-                        if (playerTurn == "A"){
+                        if (playerTurn.equals("A")){
                             playerTurn = "B";
-                            changeturn.put("toplayer", playerTurn);
                         }
                         else{
                             playerTurn = "A";
-                            changeturn.put("toplayer", playerTurn);
                         }
+                        changeturn.put("toplayer", playerTurn);
 
                         broadcastMessage(changeturn.toString(), null);
                     }

@@ -49,6 +49,7 @@ public class CtrlPlay implements Initializable {
 
     private boolean[][] waterCells;
     private boolean[][] hitCells;
+    private boolean[][] hitShipCells;
 
     private String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
 
@@ -79,6 +80,7 @@ public class CtrlPlay implements Initializable {
 
         waterCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
         hitCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
+        hitShipCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
         // Start run/draw timer bucle
         animationTimer = new PlayTimer(this::run, this::draw, 0);
         start();
@@ -215,9 +217,11 @@ public class CtrlPlay implements Initializable {
             int objY = obj.getInt("y");
             int cols = obj.getInt("cols");
             int rows = obj.getInt("rows");
+            String player = obj.getString("player");
 
-            if (isPositionInsideObject(cellX, cellY, objX, objY,  cols, rows)) {
+            if (isPositionInsideObject(cellX, cellY, objX, objY,  cols, rows) && player.equals(clientId)) {
                 message.put("message", "hit");
+                hitShipCells[row][col] = true;
                 break;
             }
             else {
@@ -228,7 +232,7 @@ public class CtrlPlay implements Initializable {
         message.put("col", col);
         message.put("row", row);
         message.put("player",clientId);
-        client.send(message.toString());
+        ClientFX.wsClient.safeSend(message.toString());
     }
     
     public void fillWater(int col, int row) {
@@ -388,15 +392,19 @@ public class CtrlPlay implements Initializable {
             }
         }
 
-        // Draw mouse circles
-        for (String clientId : clientMousePositions.keySet()) {
-            JSONObject position = clientMousePositions.get(clientId);
-            if ("A".equals(clientId)) {
-                gc.setFill(Color.BLUE);
-            } else {
-                gc.setFill(Color.GREEN); 
+        drawShipHitCells();
+
+        if (playersReady) {
+            // Draw mouse circles
+            for (String clientId : clientMousePositions.keySet()) {
+                JSONObject position = clientMousePositions.get(clientId);
+                if ("A".equals(clientId)) {
+                    gc.setFill(Color.BLUE);
+                } else {
+                    gc.setFill(Color.GREEN); 
+                }
+                gc.fillOval(position.getInt("x") - 5, position.getInt("y") - 5, 10, 10);
             }
-            gc.fillOval(position.getInt("x") - 5, position.getInt("y") - 5, 10, 10);
         }
 
         // Draw FPS if needed
@@ -438,6 +446,22 @@ public class CtrlPlay implements Initializable {
                     gc.setStroke(Color.BLACK);
                     gc.strokeRect(x, y, grid.getCellSize(), grid.getCellSize());
                 }  
+            }
+        }
+    }
+
+    private void drawShipHitCells() {
+        gc.setFill(Color.ORANGE); // Establece el color de impacto en naranja
+    
+        for (int row = 0; row < hitShipCells.length; row++) {
+            for (int col = 0; col < hitShipCells[0].length; col++) {
+                if (hitShipCells[row][col]) {
+                    double x = grid.getStartX() + col * grid.getCellSize();
+                    double y = grid.getStartY() + row * grid.getCellSize();
+                    gc.fillRect(x, y, grid.getCellSize(), grid.getCellSize()); // Dibuja el cuadrado naranja
+                    gc.setStroke(Color.BLACK);
+                    gc.strokeRect(x, y, grid.getCellSize(), grid.getCellSize()); // Dibuja el borde
+                }
             }
         }
     }

@@ -184,9 +184,13 @@ public class ClientFX extends Application {
                     ctrlPlay.fillWater(col2, row2);
                 }
             case "changeturn":
-                String player = msgObj.getString("toplayer");
-
-                ctrlPlay.setPlayerTurn(player);
+                try {
+                    String player = msgObj.getString("toplayer");
+                    ctrlPlay.setPlayerTurn(player);
+                } catch (Exception e) {
+                    System.err.println("Error retrieving toplayer: " + e.getMessage());
+                    System.out.println("Received message: " + msgObj.toString());
+                }
                 break;
             case "gameover":
                 String winner = msgObj.getString("winner");
