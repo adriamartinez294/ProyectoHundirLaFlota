@@ -1,4 +1,6 @@
 package com.project;
+
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.concurrent.Executors;
@@ -14,7 +16,7 @@ import org.java_websocket.handshake.ServerHandshake;
 public class UtilsWS {
 
     private static UtilsWS sharedInstance = null;
-    public static WebSocketClient client;
+    private WebSocketClient client;
     private Consumer<String> onOpenCallBack = null;
     private Consumer<String> onMessageCallBack = null;
     private Consumer<String> onCloseCallBack = null;
@@ -98,9 +100,7 @@ public class UtilsWS {
     }
 
     public static UtilsWS getSharedInstance(String location) {
-        if (sharedInstance == null) {
-            sharedInstance = new UtilsWS(location);
-        }
+        sharedInstance = new UtilsWS(location);
         return sharedInstance;
     }
 
@@ -150,9 +150,5 @@ public class UtilsWS {
 
     public boolean isOpen() {
         return client != null && client.isOpen();
-    }
-
-    public static WebSocketClient getClient() {
-        return UtilsWS.client;
     }
 }

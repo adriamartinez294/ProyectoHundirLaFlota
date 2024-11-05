@@ -30,135 +30,141 @@ public class Main extends Application {
     public static CtrlWait ctrlWait;
     public static CtrlPlay ctrlPlay;
     public static CtrlWinner ctrlWinner;
-    
-
-    public static void main(String[] args) {
-
-        // Iniciar app JavaFX   
-        launch(args);
-    }
-    
-    @Override
-    public void start(Stage stage) throws Exception {
-
-        final int windowWidth = 672;
-        final int windowHeight = 460;
-
-        UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
-        UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
-        UtilsViews.addView(getClass(), "ViewWait", "/assets/viewWait.fxml");
-        UtilsViews.addView(getClass(), "ViewPlay", "/assets/viewPlay.fxml");
-        UtilsViews.addView(getClass(), "ViewWinner", "/assets/viewWinner.fxml");
-
-        ctrlConfig = (CtrlConfig) UtilsViews.getController("ViewConfig");
-        ctrlWait = (CtrlWait) UtilsViews.getController("ViewWait");
-        ctrlPlay = (CtrlPlay) UtilsViews.getController("ViewPlay");
-        ctrlWinner = (CtrlWinner) UtilsViews.getController("ViewWinner");
-
-        Scene scene = new Scene(UtilsViews.parentContainer);
+    private static boolean conectado = false;
         
-
-        scene.widthProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
-                System.out.println("Width: " + newSceneWidth);
-            }
-        });
-        scene.heightProperty().addListener(new ChangeListener<Number>() {
-            @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
-                System.out.println("Height: " + newSceneHeight);
-            }
-        });
+    
+        public static void main(String[] args) {
+    
+            // Iniciar app JavaFX   
+            launch(args);
+        }
         
-        stage.setScene(scene);
-        stage.onCloseRequestProperty(); // Call close method when closing window
-        stage.setTitle("JavaFX - NodeJS");
-        stage.setMinWidth(windowWidth);
-        stage.setMaxWidth(windowWidth);
-        stage.setMinHeight(windowHeight);
-        stage.setMaxHeight(windowHeight);
-        stage.show();
-
-
-
-        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
-            System.out.println("Width changed: " + newVal);
-        });
-
-        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
-            System.out.println("Height changed: " + newVal);
-        });
-
-        // Add icon only if not Mac
-        if (!System.getProperty("os.name").contains("Mac")) {
-            Image icon = new Image("file:/icons/icon.png");
-            stage.getIcons().add(icon);
-        }
-    }
-
-    @Override
-    public void stop() { 
-        if (wsClient != null) {
-            wsClient.forceExit();
-        }
-        System.exit(1); // Kill all executor services
-    }
-
-    public static void pauseDuring(long milliseconds, Runnable action) {
-        PauseTransition pause = new PauseTransition(Duration.millis(milliseconds));
-        pause.setOnFinished(event -> Platform.runLater(action));
-        pause.play();
-    }
-
-    public static <T> List<T> jsonArrayToList(JSONArray array, Class<T> clazz) {
-        List<T> list = new ArrayList<>();
-        for (int i = 0; i < array.length(); i++) {
-            T value = clazz.cast(array.get(i));
-            list.add(value);
-        }
-        return list;
-    }
-
-    public static void connectToServer() {
-
-        if (wsClient != null) {
-            wsClient.forceExit();
-            wsClient = null;
-        }
+        @Override
+        public void start(Stage stage) throws Exception {
     
-        Platform.runLater(() -> {
-            ctrlConfig.txtMessage.setTextFill(Color.WHITE);
-            ctrlConfig.txtMessage.setFont(Font.font("Noto Serif Tamil Slanted Bold", 14));
-            ctrlConfig.txtMessage.setText("Connecting...");
-        });
+            final int windowWidth = 672;
+            final int windowHeight = 460;
     
-        Task<Void> connectionTask = new Task<>() {
-            @Override
-            protected Void call() {
-                try {
-                    Thread.sleep(1500);
+            UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
+            UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
+            UtilsViews.addView(getClass(), "ViewWait", "/assets/viewWait.fxml");
+            UtilsViews.addView(getClass(), "ViewPlay", "/assets/viewPlay.fxml");
+            UtilsViews.addView(getClass(), "ViewWinner", "/assets/viewWinner.fxml");
     
-                    String protocol = ctrlConfig.txtProtocol.getText();
-                    String host = ctrlConfig.txtHost.getText();
-                    String port = ctrlConfig.txtPort.getText();
+            ctrlConfig = (CtrlConfig) UtilsViews.getController("ViewConfig");
+            ctrlWait = (CtrlWait) UtilsViews.getController("ViewWait");
+            ctrlPlay = (CtrlPlay) UtilsViews.getController("ViewPlay");
+            ctrlWinner = (CtrlWinner) UtilsViews.getController("ViewWinner");
     
-                    wsClient = UtilsWS.getSharedInstance(protocol + "://" + host + ":" + port);
+            Scene scene = new Scene(UtilsViews.parentContainer);
+            
     
-                    wsClient.onMessage((response) -> Platform.runLater(() -> wsMessage(response)));
-                    wsClient.onError((response) -> Platform.runLater(() -> wsError(response)));
-    
-                    Platform.runLater(() -> {
-                        ctrlConfig.txtMessage.setTextFill(Color.GREEN);
-                        ctrlConfig.txtMessage.setText("Connected successfully");
-                    });
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            scene.widthProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneWidth, Number newSceneWidth) {
+                    System.out.println("Width: " + newSceneWidth);
                 }
-                return null;
-            }
-        };
+            });
+            scene.heightProperty().addListener(new ChangeListener<Number>() {
+                @Override public void changed(ObservableValue<? extends Number> observableValue, Number oldSceneHeight, Number newSceneHeight) {
+                    System.out.println("Height: " + newSceneHeight);
+                }
+            });
+            
+            stage.setScene(scene);
+            stage.onCloseRequestProperty(); // Call close method when closing window
+            stage.setTitle("JavaFX - NodeJS");
+            stage.setMinWidth(windowWidth);
+            stage.setMaxWidth(windowWidth);
+            stage.setMinHeight(windowHeight);
+            stage.setMaxHeight(windowHeight);
+            stage.show();
     
-        new Thread(connectionTask).start();
-    }
+    
+    
+            stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+                System.out.println("Width changed: " + newVal);
+            });
+    
+            stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+                System.out.println("Height changed: " + newVal);
+            });
+    
+            // Add icon only if not Mac
+            if (!System.getProperty("os.name").contains("Mac")) {
+                Image icon = new Image("file:/icons/icon.png");
+                stage.getIcons().add(icon);
+            }
+        }
+    
+        @Override
+        public void stop() { 
+            if (wsClient != null) {
+                wsClient.forceExit();
+            }
+            System.exit(1); // Kill all executor services
+        }
+    
+        public static void pauseDuring(long milliseconds, Runnable action) {
+            PauseTransition pause = new PauseTransition(Duration.millis(milliseconds));
+            pause.setOnFinished(event -> Platform.runLater(action));
+            pause.play();
+        }
+    
+        public static <T> List<T> jsonArrayToList(JSONArray array, Class<T> clazz) {
+            List<T> list = new ArrayList<>();
+            for (int i = 0; i < array.length(); i++) {
+                T value = clazz.cast(array.get(i));
+                list.add(value);
+            }
+            return list;
+        }
+    
+        public static void connectToServer() {
+            if (wsClient != null && conectado) {
+                System.out.println("Ya estás conectado.");
+                return; // Si ya está conectado, no hacer nada
+            }
+    
+            Platform.runLater(() -> {
+                ctrlConfig.txtMessage.setTextFill(Color.WHITE);
+                ctrlConfig.txtMessage.setText("Connecting...");
+            });
+    
+            Task<Void> connectionTask = new Task<>() {
+                @Override
+                protected Void call() {
+                    try {
+                        String protocol = ctrlConfig.txtProtocol.getText();
+                        String host = ctrlConfig.txtHost.getText();
+                        String port = ctrlConfig.txtPort.getText();
+    
+                        wsClient = UtilsWS.getSharedInstance(protocol + "://" + host + ":" + port);
+                        conectado = true; // Marcar como conectado
+    
+                        wsClient.onMessage(response -> Platform.runLater(() -> wsMessage(response)));
+                        wsClient.onError(response -> Platform.runLater(() -> wsError(response)));
+                        wsClient.onClose((reason) -> { // El motivo de cierre como parámetro
+                            Platform.runLater(() -> {
+                                conectado = false;
+                                ctrlConfig.txtMessage.setTextFill(Color.RED);
+                                ctrlConfig.txtMessage.setText("Connection closed: " + reason); // Muestra el motivo de cierre
+                            });
+                        });
+    
+                        Platform.runLater(() -> {
+                            ctrlConfig.txtMessage.setTextFill(Color.GREEN);
+                            ctrlConfig.txtMessage.setText("Connected successfully");
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+            };
+    
+            new Thread(connectionTask).start();
+        }
+        
    
     private static void wsMessage(String response) {
         JSONObject msgObj = new JSONObject(response);
@@ -230,17 +236,42 @@ public class Main extends Application {
                 ctrlWinner.setWinner(winner);
                 UtilsViews.setViewAnimating("ViewWinner");
                 
+                disconnectFromServer();
                 break;
         }
     }
 
+    public static void disconnectFromServer() {
+        wsClient.forceExit(); // Cierra la conexión del WebSocket
+        wsClient = null; // Limpia la instancia del cliente
+        clientId = ""; // Reinicia el ID del cliente
+        conectado = false; // Marca como desconectado
+        Platform.runLater(() -> {
+            ctrlPlay.reset();
+            ctrlConfig.txtMessage.setText("");
+        });
+    }
+
     private static void wsError(String response) {
-        String connectionRefused = "Connection refused";
-        if (response.indexOf(connectionRefused) != -1) {
-            ctrlConfig.txtMessage.setTextFill(Color.RED);
-            ctrlConfig.txtMessage.setText(connectionRefused);
-            pauseDuring(1500, () -> {
-                ctrlConfig.txtMessage.setText("");
+        String connectionRefused = "WS connection error: S'ha refusat la connexió";
+        conectado = false; // Asegúrate de marcar como desconectado
+    
+        if (response.contains(connectionRefused)) {
+            Platform.runLater(() -> {
+                ctrlConfig.txtMessage.setTextFill(Color.RED);
+                ctrlConfig.txtMessage.setText(connectionRefused);
+                wsClient = null; // Limpia la instancia del cliente
+                clientId = "";
+                conectado = false;
+            });
+        } else {
+            // Manejar otros errores de conexión si es necesario
+            Platform.runLater(() -> {
+                ctrlConfig.txtMessage.setTextFill(Color.RED);
+                ctrlConfig.txtMessage.setText("Error de conexión: " + response);
+                wsClient = null;
+                clientId = "";
+                conectado = false;
             });
         }
     }

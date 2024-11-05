@@ -64,8 +64,6 @@ public class CtrlPlay implements Initializable {
     public static Map<String, JSONObject> selectableObjects = new HashMap<>();
     private String selectedObject = "";
 
-    private WebSocketClient client = null;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -119,7 +117,7 @@ public class CtrlPlay implements Initializable {
         message.put("type", "ready");
         message.put("message", a);
 
-        client.send(message.toString());
+        Main.wsClient.safeSend(message.toString());
 
         readyButton.setVisible(false);
         waiting.setVisible(true);
@@ -208,7 +206,7 @@ public class CtrlPlay implements Initializable {
             message.put("row", row);
             message.put("client", clientId);
 
-            client.send(message.toString());
+            Main.wsClient.safeSend(message.toString());
         }
     }
 
@@ -352,15 +350,10 @@ public class CtrlPlay implements Initializable {
         // Update objects and animations here
     }
 
-    public void setClient() {
-        this.client = UtilsWS.getClient();
-    }
-
     // Draw game to canvas
     public void draw() {
 
         setClientId(Main.getClientId());
-        setClient();
 
         playerConn.setText("Player " + clientId);
 
@@ -502,5 +495,31 @@ public class CtrlPlay implements Initializable {
         // Opcionalment, afegir text (per exemple, l'objectId)
         gc.setFill(Color.BLACK);
         gc.fillText(objectId, x + 5, y + 15);
+    }
+
+    public void reset() {
+        clientMousePositions.clear();
+        selectableObjects.clear();
+        playersReady = false;
+        mouseDragging = false;
+        selectedObject = "";
+        mouseOffsetX = 0;
+        mouseOffsetY = 0;
+        mouseX = 0;
+        mouseY = 0;
+        clientId = null;
+        playerTurn = "A";
+
+        grid = new PlayGrid(150, 25, 25, 10, 10);
+    
+        waterCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
+        hitCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
+        hitShipCells = new boolean[(int) grid.getRows()][(int) grid.getCols()];
+    
+        playerConn.setText("Player ");
+        waiting.setVisible(false);
+        readyButton.setVisible(true);
+        
+        draw();
     }
 }
