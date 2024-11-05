@@ -248,33 +248,23 @@ public class Main extends Application {
         conectado = false; // Marca como desconectado
         Platform.runLater(() -> {
             ctrlPlay.reset();
+            ctrlWait.resetWaitState();
+            resetAvailableNames();
             ctrlConfig.txtMessage.setText("");
         });
     }
 
     private static void wsError(String response) {
-        String connectionRefused = "WS connection error: S'ha refusat la connexió";
-        conectado = false; // Asegúrate de marcar como desconectado
-    
-        if (response.contains(connectionRefused)) {
+        String connectionRefused = "S'ha refusat la connexió";
+        conectado = false;
             Platform.runLater(() -> {
                 ctrlConfig.txtMessage.setTextFill(Color.RED);
                 ctrlConfig.txtMessage.setText(connectionRefused);
-                wsClient = null; // Limpia la instancia del cliente
-                clientId = "";
-                conectado = false;
-            });
-        } else {
-            // Manejar otros errores de conexión si es necesario
-            Platform.runLater(() -> {
-                ctrlConfig.txtMessage.setTextFill(Color.RED);
-                ctrlConfig.txtMessage.setText("Error de conexión: " + response);
                 wsClient = null;
                 clientId = "";
                 conectado = false;
             });
         }
-    }
 
     public static String getClientId() {
         return clientId;

@@ -26,4 +26,11 @@ public class CtrlWait implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
+
+    public void resetWaitState() {
+        txtPlayer0.setText("?");
+        txtPlayer1.setText("?");
+        txtTitle.setText("Waiting for players");
+        gifCargando.setVisible(true);
+    }
 }
