@@ -140,14 +140,14 @@ public class CtrlPlay implements Initializable {
             newPosition.put("col", -1);
             newPosition.put("row", -1);
         }
-        clientMousePositions.put(ClientFX.clientId, newPosition);
+        clientMousePositions.put(Main.clientId, newPosition);
 
-        JSONObject msgObj = clientMousePositions.get(ClientFX.clientId);
+        JSONObject msgObj = clientMousePositions.get(Main.clientId);
         msgObj.put("type", "clientMouseMoving");
-        msgObj.put("clientId", ClientFX.clientId);
+        msgObj.put("clientId", Main.clientId);
     
-        if (ClientFX.wsClient != null) {
-            ClientFX.wsClient.safeSend(msgObj.toString());
+        if (Main.wsClient != null) {
+            Main.wsClient.safeSend(msgObj.toString());
         }
     }
 
@@ -238,7 +238,7 @@ public class CtrlPlay implements Initializable {
         message.put("col", col);
         message.put("row", row);
         message.put("player",clientId);
-        ClientFX.wsClient.safeSend(message.toString());
+        Main.wsClient.safeSend(message.toString());
     }
     
     public void fillWater(int col, int row) {
@@ -282,8 +282,8 @@ public class CtrlPlay implements Initializable {
             msgObj.put("type", "clientSelectableObjectMoving");
             msgObj.put("objectId", obj.getString("objectId"));
         
-            if (ClientFX.wsClient != null) {
-                ClientFX.wsClient.safeSend(msgObj.toString());
+            if (Main.wsClient != null) {
+                Main.wsClient.safeSend(msgObj.toString());
             }
         }
         setOnMouseMoved(event);
@@ -304,8 +304,8 @@ public class CtrlPlay implements Initializable {
             msgObj.put("type", "clientSelectableObjectMoving");
             msgObj.put("objectId", obj.getString("objectId"));
         
-            if (ClientFX.wsClient != null) {
-                ClientFX.wsClient.safeSend(msgObj.toString());
+            if (Main.wsClient != null) {
+                Main.wsClient.safeSend(msgObj.toString());
             }
 
             mouseDragging = false;
@@ -359,7 +359,7 @@ public class CtrlPlay implements Initializable {
     // Draw game to canvas
     public void draw() {
 
-        setClientId(ClientFX.getClientId());
+        setClientId(Main.getClientId());
         setClient();
 
         playerConn.setText("Player " + clientId);

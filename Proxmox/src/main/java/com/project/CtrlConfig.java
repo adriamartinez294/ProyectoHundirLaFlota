@@ -27,7 +27,7 @@ public class CtrlConfig implements Initializable {
 
     @FXML
     private void connectToServer() {
-        ClientFX.connectToServer();
+        Main.connectToServer();
     }
 
     @FXML

@@ -1,10 +1,10 @@
 com/project/UtilsWS.class
-com/project/ClientFX$1.class
-com/project/ClientFX.class
-com/project/Server.class
+com/project/Main.class
+com/project/Main$2.class
+com/server/Server.class
 com/project/CtrlWait.class
 com/project/PlayTimer.class
-com/project/ClientFX$2.class
+com/project/Main$1.class
 com/project/CtrlWinner.class
 com/project/UtilsWS$1.class
 com/project/PlayGrid.class
