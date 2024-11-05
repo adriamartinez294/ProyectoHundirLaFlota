@@ -181,8 +181,8 @@ public class Server extends WebSocketServer {
         obj9.put("player", "B");
         selectableObjects.put(name9, obj9);
 
-        shipSlotsPlayer_A = 17;
-        shipSlotsPlayer_B = 17;
+        shipSlotsPlayer_A = 16;
+        shipSlotsPlayer_B = 16;
     }
 
     @Override

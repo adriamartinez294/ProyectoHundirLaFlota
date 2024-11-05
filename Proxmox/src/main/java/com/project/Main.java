@@ -5,6 +5,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javafx.concurrent.Task;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -119,20 +120,44 @@ public class Main extends Application {
 
     public static void connectToServer() {
 
-        ctrlConfig.txtMessage.setTextFill(Color.WHITE);
-        ctrlConfig.txtMessage.setFont(Font.font("Noto Serif Tamil Slanted Bold", 14));
-        ctrlConfig.txtMessage.setText("Connecting...");
+        if (wsClient != null) {
+            wsClient.forceExit();
+            wsClient = null;
+        }
     
-        pauseDuring(1500, () -> { // Give time to show connecting message ...
-
-            String protocol = ctrlConfig.txtProtocol.getText();
-            String host = ctrlConfig.txtHost.getText();
-            String port = ctrlConfig.txtPort.getText();
-            wsClient = UtilsWS.getSharedInstance(protocol + "://" + host + ":" + port);
-    
-            wsClient.onMessage((response) -> { Platform.runLater(() -> { wsMessage(response); }); });
-            wsClient.onError((response) -> { Platform.runLater(() -> { wsError(response); }); });
+        Platform.runLater(() -> {
+            ctrlConfig.txtMessage.setTextFill(Color.WHITE);
+            ctrlConfig.txtMessage.setFont(Font.font("Noto Serif Tamil Slanted Bold", 14));
+            ctrlConfig.txtMessage.setText("Connecting...");
         });
+    
+        Task<Void> connectionTask = new Task<>() {
+            @Override
+            protected Void call() {
+                try {
+                    Thread.sleep(1500);
+    
+                    String protocol = ctrlConfig.txtProtocol.getText();
+                    String host = ctrlConfig.txtHost.getText();
+                    String port = ctrlConfig.txtPort.getText();
+    
+                    wsClient = UtilsWS.getSharedInstance(protocol + "://" + host + ":" + port);
+    
+                    wsClient.onMessage((response) -> Platform.runLater(() -> wsMessage(response)));
+                    wsClient.onError((response) -> Platform.runLater(() -> wsError(response)));
+    
+                    Platform.runLater(() -> {
+                        ctrlConfig.txtMessage.setTextFill(Color.GREEN);
+                        ctrlConfig.txtMessage.setText("Connected successfully");
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        };
+    
+        new Thread(connectionTask).start();
     }
    
     private static void wsMessage(String response) {
