@@ -142,7 +142,7 @@ public class Main extends Application {
                 if (clientId == "") {
                     clientId = msgObj.getString("id");
                 }
-                if (UtilsViews.getActiveView() != "ViewWait") {
+                if (UtilsViews.getActiveView() == "ViewConfig") {
                     UtilsViews.setViewAnimating("ViewWait");
                 }
                 List<String> stringList = jsonArrayToList(msgObj.getJSONArray("list"), String.class);
