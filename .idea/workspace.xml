@@ -5,11 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d46ee50f-d066-4f09-a134-7448705dc229" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proxmox/proxmoxRun.sh" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/proxmoxRun.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Proxmox/src/main/java/com/project/CtrlWinner.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/src/main/java/com/project/CtrlWinner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/src/main/java/com/project/CtrlPlay.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/src/main/java/com/project/CtrlPlay.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Proxmox/src/main/java/com/project/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/src/main/java/com/project/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/src/main/java/com/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/src/main/java/com/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/src/main/resources/assets/viewPlay.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/src/main/resources/assets/viewPlay.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/classes/assets/viewPlay.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/classes/assets/viewPlay.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/classes/com/project/CtrlPlay.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/classes/com/project/CtrlPlay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/classes/com/project/CtrlWinner.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/classes/com/project/CtrlWinner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/classes/com/project/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/classes/com/project/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/classes/com/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/classes/com/server/Server.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Proxmox/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/Proxmox/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

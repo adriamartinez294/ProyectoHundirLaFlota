@@ -12,6 +12,7 @@ import javafx.geometry.Pos;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.animation.PauseTransition;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.Scene;
@@ -44,8 +45,11 @@ public class Main extends Application {
     
             final int windowWidth = 672;
             final int windowHeight = 460;
-    
+
+            StackPane root = new StackPane();
             UtilsViews.parentContainer.setStyle("-fx-font: 14 arial;");
+            UtilsViews.parentContainer = root;
+
             UtilsViews.addView(getClass(), "ViewConfig", "/assets/viewConfig.fxml");
             UtilsViews.addView(getClass(), "ViewWait", "/assets/viewWait.fxml");
             UtilsViews.addView(getClass(), "ViewPlay", "/assets/viewPlay.fxml");
@@ -203,8 +207,10 @@ public class Main extends Application {
                 ctrlPlay.playerTurnText.setVisible(true);
                 break;
             case "waitingResponse":
+                String msg = msgObj.getString("message");
                 int col = msgObj.getInt("col");
                 int row = msgObj.getInt("row");
+                ctrlPlay.playerAction.setText(msg);
                 ctrlPlay.checkHitWater(col, row);
                 break;
             case "endAttack":
@@ -214,10 +220,11 @@ public class Main extends Application {
 
                 if (land.equals("hit")){
                     ctrlPlay.fillHit(col2, row2);
-                    
+                    ctrlPlay.playerAction.setText(ctrlPlay.playerAction.getText() + ". It's a Hit!");
                 }
                 else{
                     ctrlPlay.fillWater(col2, row2);
+                    ctrlPlay.playerAction.setText(ctrlPlay.playerAction.getText() + ". It's Water!");
                 }
             case "changeturn":
                 try {
@@ -249,7 +256,6 @@ public class Main extends Application {
         Platform.runLater(() -> {
             ctrlPlay.reset();
             ctrlWait.resetWaitState();
-            resetAvailableNames();
             ctrlConfig.txtMessage.setText("");
         });
     }
@@ -269,12 +275,13 @@ public class Main extends Application {
     public static void restartApplication() {
         Platform.runLater(() -> {
             try {
-                Stage currentStage = (Stage) UtilsViews.parentContainer.getScene().getWindow(); // Obtén el Stage actual
-                currentStage.close(); // Cierra el Stage actual
+                Stage currentStage = (Stage) UtilsViews.parentContainer.getScene().getWindow();
+                currentStage.close();
 
-                Main app = new Main(); // Crea una nueva instancia de la aplicación
-                Stage newStage = new Stage(); // Crea un nuevo Stage
-                app.start(newStage); // Llama al método start() para reiniciar la app
+                Main app = new Main();
+                Stage newStage = new Stage();
+                app.start(newStage);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

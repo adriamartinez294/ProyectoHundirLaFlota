@@ -39,8 +39,8 @@ public class Server extends WebSocketServer {
 
     private static Map<String, JSONObject> selectableObjects = new HashMap<>();
 
-    private int shipSlotsPlayer_A = 1;
-    private int shipSlotsPlayer_B = 1;
+    private int shipSlotsPlayer_A = 3;
+    private int shipSlotsPlayer_B = 3;
 
     public Server(InetSocketAddress address) {
         super(address);
@@ -181,8 +181,8 @@ public class Server extends WebSocketServer {
         obj9.put("player", "B");
         selectableObjects.put(name9, obj9);
 
-        shipSlotsPlayer_A = 1;
-        shipSlotsPlayer_B = 1;
+        shipSlotsPlayer_A = 3;
+        shipSlotsPlayer_B = 3;
     }
 
     @Override

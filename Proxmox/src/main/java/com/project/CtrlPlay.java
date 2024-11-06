@@ -39,6 +39,9 @@ public class CtrlPlay implements Initializable {
     @FXML
     public Text playerTurnText;
 
+    @FXML
+    public Text playerAction;
+
     private GraphicsContext gc;
     private Boolean showFPS = false;
 
@@ -195,10 +198,12 @@ public class CtrlPlay implements Initializable {
         else if (playersReady && playerTurn.equals(this.clientId)) {
             int col = grid.getCol(mouseX);
             int row = grid.getRow(mouseY);
+
             System.out.println("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
             System.out.println("Calculated Col: " + col + ", Calculated Row: " + row);
 
             String a = "player " + clientId + " attacked " + letters[col]+row;
+            playerAction.setText("You attacked" + letters[col]+row);
             JSONObject message = new JSONObject();
             message.put("type", "attack");
             message.put("message", a);
