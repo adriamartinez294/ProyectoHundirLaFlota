@@ -266,6 +266,20 @@ public class Main extends Application {
             });
         }
 
+    public static void restartApplication() {
+        Platform.runLater(() -> {
+            try {
+                Stage currentStage = (Stage) UtilsViews.parentContainer.getScene().getWindow(); // Obtén el Stage actual
+                currentStage.close(); // Cierra el Stage actual
+
+                Main app = new Main(); // Crea una nueva instancia de la aplicación
+                Stage newStage = new Stage(); // Crea un nuevo Stage
+                app.start(newStage); // Llama al método start() para reiniciar la app
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
     public static String getClientId() {
         return clientId;
     }

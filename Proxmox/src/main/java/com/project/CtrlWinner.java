@@ -25,7 +25,7 @@ public class CtrlWinner implements Initializable {
 
     @FXML
     private void backToLobby() {
-        UtilsViews.setViewAnimating("ViewConfig");
+        Main.restartApplication();
     }
 
 }
