@@ -203,7 +203,7 @@ public class CtrlPlay implements Initializable {
             System.out.println("Calculated Col: " + col + ", Calculated Row: " + row);
 
             String a = "player " + clientId + " attacked " + letters[col]+row;
-            playerAction.setText("You attacked" + letters[col]+row);
+            playerAction.setText("You attacked " + letters[col]+row);
             JSONObject message = new JSONObject();
             message.put("type", "attack");
             message.put("message", a);
